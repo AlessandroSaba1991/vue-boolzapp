@@ -3,3 +3,57 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+body {
+  background: linear-gradient(rgba(221, 219, 209, 1), rgba(210, 219, 220, 1));
+}
+
+img {
+  max-width: 100%;
+  border-radius: 50%;
+}
+
+header {
+  background-color: rgba(0, 150, 136, 1);
+  height: 200px;
+}
+
+#site_main {
+  height: 90vh;
+  width: 1800px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* #region Aside */
+aside {
+  width: 34%;
+}
+
+.aside_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: rgba(234, 234, 234, 1);
+}
+
+.principal_contact {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+
+.principal_contact > .img {
+  width: 60px;
+}
+
+.actions {
+  color: rgba(177, 177, 177, 1);
+}
+
+.actions>i{
+    margin-right: 1rem;
+}
