@@ -57,7 +57,7 @@ header {
 #site_main {
   display: flex;
   height: 90vh;
-  width: 1800px;
+  width: 80%;
   position: absolute;
   top: 50%;
   left: 50%;
