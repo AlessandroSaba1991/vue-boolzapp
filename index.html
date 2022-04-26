@@ -65,14 +65,14 @@
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
                     <!-- /.search -->
-                    <input type="text" placeholder="Cerca o inizia una nuova chat">
+                    <input type="text" placeholder="Cerca o inizia una nuova chat" v-model="input_search">
     
                 </section>
                 <!-- /.search -->
     
                 <section class="contacts">
 
-                    <div class="contact" v-for="(contact,index) in contacts" :class="contact_active === index ? 'active' : ''" @click="contact_active=index">
+                    <div class="contact" v-for="(contact,index) in contacts" :class="contact_active === index ? 'active' : ''"  @click="contact_active=index" v-if="contact.name.includes(input_search)">
     
                         <div class="description_contact">
                             <div class="img">

@@ -184,7 +184,9 @@ const app = new Vue({
         date: new Date().toLocaleString(),
         message:'',
         status: 'sent'
-    }
+    },
+    input_search:''
+    
   },
   methods: {
       add_message(){
@@ -202,6 +204,8 @@ const app = new Vue({
               message:'',
               status: 'sent'
           }
-      }
+      },
+      
   },
+  
 });
