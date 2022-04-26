@@ -14,240 +14,159 @@
 
 <body>
 
-    <header id="site_header"></header>
-    <!-- /#site_header -->
+    <div id="app">
 
-    <main id="site_main">
-
-        <aside>
-
-            <section class="aside_header">
-                <div class="principal_contact">
+        <header id="site_header"></header>
+        <!-- /#site_header -->
+    
+        <main id="site_main">
+    
+            <aside>
+    
+                <section class="aside_header">
+                    <div class="principal_contact">
+                        <div class="img">
+                            <img src="./assets/img/avatar_io.jpg" alt="me">
+                        </div>
+                        <!-- /.img -->
+                        <div class="text">
+                            <h3>Sofia</h3>
+                        </div>
+                        <!-- /.text -->
+                    </div>
+                    <!-- /.principal_contact -->
+    
+                    <div class="actions">
+                        <i class="fa-solid fa-circle-notch fa-xl"></i>
+                        <i class="fa-solid fa-message fa-xl"></i>
+                        <i class="fa-solid fa-ellipsis-vertical fa-xl"></i>
+                    </div>
+                    <!-- /.actions -->
+    
+                </section>
+                <!-- /.aside_header -->
+    
+                <section class="section_notifiche">
                     <div class="img">
-                        <img src="./assets/img/avatar_io.jpg" alt="me">
+                        <i class="fa-solid fa-bell-slash fa-xl"></i>
                     </div>
                     <!-- /.img -->
                     <div class="text">
-                        <h3>Sofia</h3>
+                        <h3>Ricevi notifiche di nuovi messaggi</h3>
+                        <p>Attiva notifiche desktop</p>
                     </div>
                     <!-- /.text -->
-                </div>
-                <!-- /.principal_contact -->
-
-                <div class="actions">
-                    <i class="fa-solid fa-circle-notch fa-xl"></i>
-                    <i class="fa-solid fa-message fa-xl"></i>
-                    <i class="fa-solid fa-ellipsis-vertical fa-xl"></i>
-                </div>
-                <!-- /.actions -->
-
-            </section>
-            <!-- /.aside_header -->
-
-            <section class="section_notifiche">
-                <div class="img">
-                    <i class="fa-solid fa-bell-slash fa-xl"></i>
-                </div>
-                <!-- /.img -->
-                <div class="text">
-                    <h3>Ricevi notifiche di nuovi messaggi</h3>
-                    <p>Attiva notifiche desktop</p>
-                </div>
-                <!-- /.text -->
-            </section>
-            <!-- /.notifiche -->
-
-            <section class="section_search">
-
-                <button class="search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
+                </section>
+                <!-- /.notifiche -->
+    
+                <section class="section_search">
+    
+                    <button class="search">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <!-- /.search -->
+                    <input type="text" placeholder="Cerca o inizia una nuova chat">
+    
+                </section>
                 <!-- /.search -->
-                <input type="text" placeholder="Cerca o inizia una nuova chat">
-
-            </section>
-            <!-- /.search -->
-
-            <section class="contacts">
-                <div class="contact active">
-
-                    <div class="description_contact">
+    
+                <section class="contacts">
+                    
+                    <div class="contact" v-for="contact in contacts">
+    
+                        <div class="description_contact">
+                            <div class="img">
+                                <img :src="contact.avatar" :alt="contact.name">
+                            </div>
+                            <!-- /.img -->
+                            <div class="text">
+                                <h3>{{contact.name}}</h3>
+                                <p>Ultimo messaggio inviato</p>
+                            </div>
+                            <!-- /.text -->
+                        </div>
+                        <!-- /.description_contact -->
+                        <div class="date">
+                            <small>12:00</small>
+                        </div>
+                        <!-- /.date -->
+                    </div>
+                    <!-- /.contact -->
+    
+                </section>
+                <!-- /.contacts -->
+    
+    
+            </aside>
+    
+            <article>
+    
+                <div class="article_header">
+    
+                    <div class="contact_to_message">
                         <div class="img">
-                            <img src="./assets/img/avatar_1.jpg" alt="michele">
+                            <img src="./assets/img/avatar_io.jpg" alt="me">
                         </div>
                         <!-- /.img -->
                         <div class="text">
-                            <h3>Michele</h3>
-                            <p>Ultimo messaggio inviato</p>
+                            <h3>Sofia</h3>
+                            <p>Ultimo accesso oggi alle 12:00</p>
                         </div>
                         <!-- /.text -->
                     </div>
-                    <!-- /.description_contact -->
-                    <div class="date">
-                        <small>12:00</small>
+                    <!-- /.principal_contact -->
+    
+                    <div class="actions">
+                        <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+                        <i class="fa-solid fa-paperclip fa-xl"></i>
+                        <i class="fa-solid fa-ellipsis-vertical fa-xl"></i>
                     </div>
-                    <!-- /.date -->
+                    <!-- /.actions -->
+    
                 </div>
-                <!-- /.contact -->
-
-                <div class="contact ">
-
-                    <div class="description_contact">
-                        <div class="img">
-                            <img src="./assets/img/avatar_1.jpg" alt="michele">
+                <!-- /.body_header -->
+                <div class="body_message">
+    
+                    <div class="container">
+    
+                        <div class="message margin_message bg_green">
+                            <p>Hai portato a spasso il cane?</p>
+                            <div class="time_message">12:00</div>
                         </div>
-                        <!-- /.img -->
-                        <div class="text">
-                            <h3>Michele</h3>
-                            <p>Ultimo messaggio inviato</p>
+                        <!-- /.message -->
+    
+                        <div class="message margin_message bg_green">
+                            <p>Hai portato a spasso il cane?</p>
+                            <div class="time_message">12:00</div>
                         </div>
-                        <!-- /.text -->
+                        <!-- /.message -->
+    
+                        <div class="message bg_white">
+                            <p>Hai portato a spasso il cane?</p>
+                            <div class="time_message">12:00</div>
+                        </div>
+                        <!-- /.message -->
+    
                     </div>
-                    <!-- /.description_contact -->
-                    <div class="date">
-                        <small>12:00</small>
-                    </div>
-                    <!-- /.date -->
+                    <!-- /.container -->
+    
                 </div>
-                <!-- /.contact -->
-
-                <div class="contact ">
-
-                    <div class="description_contact">
-                        <div class="img">
-                            <img src="./assets/img/avatar_1.jpg" alt="michele">
-                        </div>
-                        <!-- /.img -->
-                        <div class="text">
-                            <h3>Michele</h3>
-                            <p>Ultimo messaggio inviato</p>
-                        </div>
-                        <!-- /.text -->
-                    </div>
-                    <!-- /.description_contact -->
-                    <div class="date">
-                        <small>12:00</small>
-                    </div>
-                    <!-- /.date -->
+                <!-- /.body_message -->
+                <div class="body_footer">
+    
+                    <i class="fa-regular fa-face-smile fa-xl"></i>
+                    <input type="text" placeholder="Scrivi un messaggio">
+                    <i class="fa-solid fa-microphone fa-xl"></i>
                 </div>
-                <!-- /.contact -->
+                <!-- /.body_footer -->
+    
+            </article>
+    
+        </main>
+        <!-- /#site_main -->
 
-                <div class="contact ">
-
-                    <div class="description_contact">
-                        <div class="img">
-                            <img src="./assets/img/avatar_1.jpg" alt="michele">
-                        </div>
-                        <!-- /.img -->
-                        <div class="text">
-                            <h3>Michele</h3>
-                            <p>Ultimo messaggio inviato</p>
-                        </div>
-                        <!-- /.text -->
-                    </div>
-                    <!-- /.description_contact -->
-                    <div class="date">
-                        <small>12:00</small>
-                    </div>
-                    <!-- /.date -->
-                </div>
-                <!-- /.contact -->
-
-                <div class="contact ">
-
-                    <div class="description_contact">
-                        <div class="img">
-                            <img src="./assets/img/avatar_1.jpg" alt="michele">
-                        </div>
-                        <!-- /.img -->
-                        <div class="text">
-                            <h3>Michele</h3>
-                            <p>Ultimo messaggio inviato</p>
-                        </div>
-                        <!-- /.text -->
-                    </div>
-                    <!-- /.description_contact -->
-                    <div class="date">
-                        <small>12:00</small>
-                    </div>
-                    <!-- /.date -->
-                </div>
-                <!-- /.contact -->
-
-                <div class="contact ">
-
-                    <div class="description_contact">
-                        <div class="img">
-                            <img src="./assets/img/avatar_1.jpg" alt="michele">
-                        </div>
-                        <!-- /.img -->
-                        <div class="text">
-                            <h3>Michele</h3>
-                            <p>Ultimo messaggio inviato</p>
-                        </div>
-                        <!-- /.text -->
-                    </div>
-                    <!-- /.description_contact -->
-                    <div class="date">
-                        <small>12:00</small>
-                    </div>
-                    <!-- /.date -->
-                </div>
-                <!-- /.contact -->
-
-                <div class="contact ">
-
-                    <div class="description_contact">
-                        <div class="img">
-                            <img src="./assets/img/avatar_1.jpg" alt="michele">
-                        </div>
-                        <!-- /.img -->
-                        <div class="text">
-                            <h3>Michele</h3>
-                            <p>Ultimo messaggio inviato</p>
-                        </div>
-                        <!-- /.text -->
-                    </div>
-                    <!-- /.description_contact -->
-                    <div class="date">
-                        <small>12:00</small>
-                    </div>
-                    <!-- /.date -->
-                </div>
-                <!-- /.contact -->
-
-                <div class="contact ">
-
-                    <div class="description_contact">
-                        <div class="img">
-                            <img src="./assets/img/avatar_1.jpg" alt="michele">
-                        </div>
-                        <!-- /.img -->
-                        <div class="text">
-                            <h3>Michele</h3>
-                            <p>Ultimo messaggio inviato</p>
-                        </div>
-                        <!-- /.text -->
-                    </div>
-                    <!-- /.description_contact -->
-                    <div class="date">
-                        <small>12:00</small>
-                    </div>
-                    <!-- /.date -->
-                </div>
-                <!-- /.contact -->
-            </section>
-            <!-- /.contacts -->
-
-
-        </aside>
-
-        <body>
-
-        </body>
-
-    </main>
-    <!-- /#site_main -->
+    </div>
+    <!-- /#app -->
 
 
 

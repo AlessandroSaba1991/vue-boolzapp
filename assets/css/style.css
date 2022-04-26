@@ -20,8 +20,34 @@ img {
 
 /* #region Utility */
 
-.active{
-    background-color: rgba(233, 235, 235, 1);
+.active {
+  background-color: rgba(233, 235, 235, 1);
+}
+
+.container{
+    margin: 0rem auto;
+    width: 70%;
+    padding-top: 3rem;
+}
+
+.message{
+    width: calc(100% / 12 * 5);
+    position: relative;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.margin_message{
+    margin-left: calc(100% / 12 * 7);
+}
+
+.bg_green{
+    background-color: rgba(213, 249, 186, 1);
+}
+
+.bg_white{
+    background-color: white;
 }
 
 /* #endregion Utility */
@@ -32,6 +58,7 @@ header {
 }
 
 #site_main {
+  display: flex;
   height: 90vh;
   width: 1800px;
   position: absolute;
@@ -45,7 +72,7 @@ aside {
   width: 34%;
   height: 100%;
   background-color: white;
-  overflow: hidden;
+  
 }
 
 /* header */
@@ -64,7 +91,7 @@ aside {
 }
 
 .principal_contact > .img {
-  width: 60px;
+  width: 50px;
 }
 
 .actions {
@@ -85,7 +112,7 @@ aside {
 }
 
 .section_notifiche > .img {
-  width: 60px;
+  width: 55px;
   aspect-ratio: 1 / 1;
   display: flex;
   align-items: center;
@@ -114,11 +141,11 @@ aside {
   background-color: white;
   color: rgba(177, 177, 177, 1);
   border: 1px solid rgb(245, 245, 245, 1);
-  font-size: 16px;
 }
 
 .search {
   padding: 0.5rem 2rem;
+  font-size: 16px;
 }
 
 .section_search > input {
@@ -131,18 +158,18 @@ aside {
 .contacts {
   background-color: white;
   overflow-y: scroll;
-  height: calc(100% - 224px);
+  height: calc(100% - 209px);
 }
 
 .contact {
   display: flex;
   justify-content: space-between;
   padding: 0.5rem;
-  border-top: 1px solid rgba(214,214,214,1);
+  border-top: 1px solid rgba(214, 214, 214, 1);
 }
 
-.contact:first-child{
-    border: none;
+.contact:first-child {
+  border: none;
 }
 
 .description_contact {
@@ -151,12 +178,78 @@ aside {
 }
 
 .description_contact > .img {
-  width: 70px;
+  width: 60px;
   margin-right: 1rem;
 }
 
 .description_contact p,
-.contact>.date{
-    color: rgba(177, 177, 177, 1);
+.contact > .date {
+  color: rgba(177, 177, 177, 1);
 }
 /* #endregion Aside */
+
+/* #region Body */
+
+/* header */
+article {
+  width: 66%;
+}
+
+.article_header {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: rgba(234, 234, 234, 1);
+  border-left: 1px solid rgba(214, 214, 214, 1);
+}
+
+.contact_to_message {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+
+.contact_to_message > .img {
+  width: 50px;
+}
+
+.contact_to_message p{
+    color: rgba(107, 115, 118, 1);
+}
+
+/* main */
+
+.body_message{
+    background-image: url(../img/mine.jpg);
+    height: calc(100% - 140px);
+    overflow-y: scroll;
+    margin-top: -1px;
+}
+
+.time_message{
+    position: absolute;
+    right: 0.25rem;
+    bottom: 0.25rem;
+    font-size: 10px;
+    color: rgba(177, 177, 177, 1);
+}
+
+/* footer */
+
+.body_footer{
+   
+    background-color: rgba(243, 238, 234, 1);
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0.75rem 0;
+    align-items: center;
+}
+
+.body_footer>input{
+    width: 80%;
+    border: none;
+    padding: 1rem;
+    border-radius: 0.25rem;
+}
