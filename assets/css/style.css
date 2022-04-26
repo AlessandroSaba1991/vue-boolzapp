@@ -38,12 +38,9 @@ img {
     margin-bottom: 1rem;
 }
 
-.margin_message{
-    margin-left: calc(100% / 12 * 7);
-}
-
 .bg_green{
     background-color: rgba(213, 249, 186, 1);
+    margin-left: calc(100% / 12 * 7);
 }
 
 .bg_white{

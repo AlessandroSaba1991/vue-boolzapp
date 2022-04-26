@@ -172,6 +172,7 @@ const app = new Vue({
             ],
         }
     ],
+    contact_active: 0
   },
   methods: {},
 });

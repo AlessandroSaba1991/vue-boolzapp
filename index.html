@@ -71,8 +71,8 @@
                 <!-- /.search -->
     
                 <section class="contacts">
-                    
-                    <div class="contact" v-for="contact in contacts">
+
+                    <div class="contact" v-for="(contact,index) in contacts" :class="contact_active === index ? 'active' : ''" @click="contact_active=index">
     
                         <div class="description_contact">
                             <div class="img">
@@ -105,11 +105,11 @@
     
                     <div class="contact_to_message">
                         <div class="img">
-                            <img src="./assets/img/avatar_io.jpg" alt="me">
+                            <img :src="contacts[contact_active].avatar" :alt="contacts[contact_active].name">
                         </div>
                         <!-- /.img -->
                         <div class="text">
-                            <h3>Sofia</h3>
+                            <h3>{{contacts[contact_active].name}}</h3>
                             <p>Ultimo accesso oggi alle 12:00</p>
                         </div>
                         <!-- /.text -->
@@ -129,21 +129,9 @@
     
                     <div class="container">
     
-                        <div class="message margin_message bg_green">
-                            <p>Hai portato a spasso il cane?</p>
-                            <div class="time_message">12:00</div>
-                        </div>
-                        <!-- /.message -->
-    
-                        <div class="message margin_message bg_green">
-                            <p>Hai portato a spasso il cane?</p>
-                            <div class="time_message">12:00</div>
-                        </div>
-                        <!-- /.message -->
-    
-                        <div class="message bg_white">
-                            <p>Hai portato a spasso il cane?</p>
-                            <div class="time_message">12:00</div>
+                        <div class="message" :class="message.status === 'sent' ? 'bg_green' : 'bg_white'" v-for="message in contacts[contact_active].messages">
+                            <p>{{message.message}}</p>
+                            <div class="time_message">{{message.date}}</div>
                         </div>
                         <!-- /.message -->
     
