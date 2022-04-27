@@ -78,18 +78,18 @@
 
                         <div class="description_contact">
                             <div class="img">
-                                <img :src="contact.avatar" :alt="contact.name">
+                                <img :src="'./assets/img/avatar'+contact.avatar+'.jpg'" :alt="contact.name">
                             </div>
                             <!-- /.img -->
                             <div class="text">
                                 <h3>{{contact.name}}</h3>
-                                <p>Ultimo messaggio inviato</p>
+                                <p>{{last_message[index][length_message[index]].message}}</p>
                             </div>
                             <!-- /.text -->
                         </div>
                         <!-- /.description_contact -->
                         <div class="date">
-                            <small>12:00</small>
+                            <small>{{last_message[index][length_message[index]].date}}</small>
                         </div>
                         <!-- /.date -->
                     </div>
@@ -107,12 +107,12 @@
 
                     <div class="contact_to_message">
                         <div class="img">
-                            <img :src="contacts[contact_active].avatar" :alt="contacts[contact_active].name">
+                            <img :src="'./assets/img/avatar'+contacts[contact_active].avatar+'.jpg'" :alt="contacts[contact_active].name">
                         </div>
                         <!-- /.img -->
                         <div class="text">
                             <h3>{{contacts[contact_active].name}}</h3>
-                            <p>Ultimo accesso oggi alle 12:00</p>
+                            <p>Ultimo accesso il {{last_message[contact_active][length_message[contact_active]].date}}</p>
                         </div>
                         <!-- /.text -->
                     </div>
@@ -132,7 +132,7 @@
                     <div class="container">
 
                         <div class="message" :class="message.status === 'sent' ? 'bg_green' : 'bg_white'"
-                            v-for="message in contacts[contact_active].messages">
+                            v-for="(message,index) in contacts[contact_active].messages">
                             <p>{{message.message}}</p>
                             <div class="time_message">{{message.date}}</div>
                         </div>

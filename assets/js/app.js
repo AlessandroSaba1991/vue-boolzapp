@@ -19,7 +19,7 @@ const app = new Vue({
     contacts: [
       {
         name: "Michele",
-        avatar: "./assets/img/avatar_1.jpg",
+        avatar: "_1",
         visible: true,
         messages: [
           {
@@ -41,7 +41,7 @@ const app = new Vue({
       },
       {
         name: "Fabio",
-        avatar: "./assets/img/avatar_2.jpg",
+        avatar: "_2",
         visible: true,
         messages: [
           {
@@ -63,7 +63,7 @@ const app = new Vue({
       },
       {
         name: "Samuele",
-        avatar: "./assets/img/avatar_3.jpg",
+        avatar: "_3",
         visible: true,
         messages: [
           {
@@ -85,7 +85,7 @@ const app = new Vue({
       },
       {
         name: "Alessandro B.",
-        avatar: "./assets/img/avatar_4.jpg",
+        avatar: "_4",
         visible: true,
         messages: [
           {
@@ -102,7 +102,7 @@ const app = new Vue({
       },
       {
         name: "Alessandro L.",
-        avatar: "./assets/img/avatar_5.jpg",
+        avatar: "_5",
         visible: true,
         messages: [
           {
@@ -119,7 +119,7 @@ const app = new Vue({
       },
       {
         name: "Claudia",
-        avatar: "./assets/img/avatar_6.jpg",
+        avatar: "_6",
         visible: true,
         messages: [
           {
@@ -141,7 +141,7 @@ const app = new Vue({
       },
       {
         name: "Federico",
-        avatar: "./assets/img/avatar_7.jpg",
+        avatar: "_7",
         visible: true,
         messages: [
           {
@@ -158,7 +158,7 @@ const app = new Vue({
       },
       {
         name: "Davide",
-        avatar: "./assets/img/avatar_8.jpg",
+        avatar: "_8",
         visible: true,
         messages: [
           {
@@ -186,6 +186,8 @@ const app = new Vue({
       status: "sent",
     },
     input_search: "",
+    last_message: [],
+    length_message: [],
   },
   methods: {
     add_message() {
@@ -197,11 +199,14 @@ const app = new Vue({
           status: "received",
         };
         app.contacts[app.contact_active].messages.push(message);
-      }, 1000);
-      this.new_message = {
+        app.last_message = [] 
+        app.length_message = []
+        app.function_last_message()
+      }, 1000);       
+      app.new_message = {
         date: new Date().toLocaleString(),
         message: "",
-        status: "sent",
+        status: "sent",        
       };
     },
     confronta(contact) {
@@ -211,5 +216,15 @@ const app = new Vue({
         return true;
       }
     },
+    function_last_message() {
+      this.contacts.forEach(message => this.last_message.push(message.messages));
+      this.last_message.forEach(element => {
+        const message = element;
+        this.length_message.push(message.length - 1);
+      });
+    },
+  },
+  mounted() {
+    this.function_last_message();
   },
 });
