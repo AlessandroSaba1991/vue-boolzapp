@@ -198,6 +198,20 @@ const app = new Vue({
         ],
       },
     ],
+    risposta:[
+      'Le cose più belle della vita o sono immorali, o sono illegali, oppure fanno ingrassare.',
+      'La vita è come andare in bicicletta. Per mantenere l’equilibrio devi muoverti.',
+      'Un giorno qualcuno entrerà nella tua vita e ti farà capire quanto stavi da Dio prima di conoscerlo.',
+      '“Io boh, senza parole” come frase per tutto, come pensiero ricorrente, come filosofia di vita.',
+      'Stasera esco e faccio vita sociaHAHAHAHAHAHAHAHAH scherzo, sono già in pigiama.',
+      'La vita sarebbe tragica se non fosse divertente.',
+      'Se la felicità è dietro l’angolo, la mia vita è un cerchio.',
+      'Alcune persone non impazziscono mai. Che vite veramente orribili devono condurre.',
+      'Tutto ciò di cui hai bisogno è l’amore. Ma un po’ di cioccolato ogni tanto non fa male.',
+      'La vita sarebbe infinitamente più felice se nascessimo a ottanta anni e ci avvicinassimo gradualmente ai diciotto.',
+      'La prova che nell’universo esistono altre forme di vita intelligente è che non ci hanno ancora contattato.',
+      'Non prendere la vita troppo sul serio. Non ne uscirai vivo.'
+    ],
     contact_active: 0,
     new_message: {
       date: new Date().toLocaleString(),
@@ -214,7 +228,7 @@ const app = new Vue({
       setTimeout(function () {
         const message = {
           date: new Date().toLocaleString(),
-          message: "Ok",
+          message: app.risposta[Math.floor(Math.random() * app.risposta.length)],
           status: "received",
         };
         app.contacts[app.contact_active].messages.push(message);
