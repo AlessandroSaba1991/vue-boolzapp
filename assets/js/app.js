@@ -220,24 +220,32 @@ const app = new Vue({
     },
     input_search: "",
     dropdown: false,
-    submitDisabled: false,
+    text_last_message: 'Ultimo accesso alle ',
+    show_hour:true
   },
   methods: {
     add_message() {
+      this.show_hour = false
       this.contacts[this.contact_active].messages.push(this.new_message);
-      setTimeout(function () {
-        const message = {
-          date: new Date().toLocaleString(),
-          message: app.risposta[Math.floor(Math.random() * app.risposta.length)],
-          status: "received",
-        };
-        app.contacts[app.contact_active].messages.push(message);
-      }, 1000);
       this.new_message = {
         date: new Date().toLocaleString(),
         message: "",
         status: "sent",
       };
+      this.text_last_message ='Sta scrivendo...'
+      setTimeout(function () {
+        const messaggio = {
+          date: new Date().toLocaleString(),
+          message: app.risposta[Math.floor(Math.random() * app.risposta.length)],
+          status: "received",
+        };
+        app.text_last_message = 'Online'
+        app.contacts[app.contact_active].messages.push(messaggio);
+      }, 1000);
+      setTimeout(function(){
+        app.text_last_message = 'Ultimo accesso alle '
+        app.show_hour = true
+      },3000)
     },
     confronta(contact, index) {
       const nome = contact.name.toLowerCase();
@@ -253,5 +261,6 @@ const app = new Vue({
       this.contacts[this.contact_active].messages.splice(index, 1);
       this.dropdown = false;
     },
-  },
+  }, 
 });
+console.log(dayjs().format());
