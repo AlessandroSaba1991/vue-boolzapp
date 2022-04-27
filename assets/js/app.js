@@ -186,8 +186,7 @@ const app = new Vue({
       status: "sent",
     },
     input_search: "",
-    last_message: [],
-    length_message: [],
+    dropdown: false,
   },
   methods: {
     add_message() {
@@ -199,32 +198,26 @@ const app = new Vue({
           status: "received",
         };
         app.contacts[app.contact_active].messages.push(message);
-        app.last_message = [] 
-        app.length_message = []
-        app.function_last_message()
-      }, 1000);       
+      }, 1000);
       app.new_message = {
         date: new Date().toLocaleString(),
         message: "",
-        status: "sent",        
+        status: "sent",
       };
     },
-    confronta(contact) {
+    confronta(contact, index) {
       const nome = contact.name.toLowerCase();
       const input_search = this.input_search.toLowerCase();
-      if (nome.includes(input_search)) {
-        return true;
+      if (!nome.includes(input_search)) {
+        this.contacts[index].visible = false;
+      } else {
+        this.contacts[index].visible = true;
       }
+      return this.contacts[index].visible;
     },
-    function_last_message() {
-      this.contacts.forEach(message => this.last_message.push(message.messages));
-      this.last_message.forEach(element => {
-        const message = element;
-        this.length_message.push(message.length - 1);
-      });
+    delete_message(index) {
+      this.contacts[this.contact_active].messages.splice(index, 1);
+      this.dropdown = false;
     },
-  },
-  mounted() {
-    this.function_last_message();
   },
 });

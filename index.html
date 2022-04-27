@@ -74,7 +74,7 @@
 
                     <div class="contact" v-for="(contact,index) in contacts"
                         :class="contact_active === index ? 'active' : ''" @click="contact_active=index"
-                        v-if="confronta(contact)">
+                        v-if="confronta(contact,index)">
 
                         <div class="description_contact">
                             <div class="img">
@@ -83,13 +83,13 @@
                             <!-- /.img -->
                             <div class="text">
                                 <h3>{{contact.name}}</h3>
-                                <p>{{last_message[index][length_message[index]].message}}</p>
+                                <p>{{contacts[index].messages[contacts[index].messages.length-1].message}}</p>
                             </div>
                             <!-- /.text -->
                         </div>
                         <!-- /.description_contact -->
                         <div class="date">
-                            <small>{{last_message[index][length_message[index]].date}}</small>
+                            <small>{{contacts[index].messages[contacts[index].messages.length-1].date.substring(10)}}</small>
                         </div>
                         <!-- /.date -->
                     </div>
@@ -107,12 +107,16 @@
 
                     <div class="contact_to_message">
                         <div class="img">
-                            <img :src="'./assets/img/avatar'+contacts[contact_active].avatar+'.jpg'" :alt="contacts[contact_active].name">
+                            <img :src="'./assets/img/avatar'+contacts[contact_active].avatar+'.jpg'"
+                                :alt="contacts[contact_active].name">
                         </div>
                         <!-- /.img -->
                         <div class="text">
                             <h3>{{contacts[contact_active].name}}</h3>
-                            <p>Ultimo accesso il {{last_message[contact_active][length_message[contact_active]].date}}</p>
+                            <p>
+                                Ultimo accesso il
+                                {{contacts[contact_active].messages[contacts[contact_active].messages.length-1].date}}
+                            </p>
                         </div>
                         <!-- /.text -->
                     </div>
@@ -131,10 +135,17 @@
 
                     <div class="container">
 
-                        <div class="message" :class="message.status === 'sent' ? 'bg_green' : 'bg_white'"
-                            v-for="(message,index) in contacts[contact_active].messages">
+                        <div class="message" :class="message.status === 'sent' ? 'bg_green' : 'bg_white' "
+                            @mouseleave="dropdown=false" v-for="(message,index) in contacts[contact_active].messages">
                             <p>{{message.message}}</p>
-                            <div class="time_message">{{message.date}}</div>
+                            <div class="icon">
+                                <i class="fa-solid fa-chevron-down" @click="dropdown = true"></i>
+                                <div v-if="dropdown" class="dropdown">
+                                    <p>Message info</p>
+                                    <p @click="delete_message(index)">Delete message</p>
+                                </div>
+                            </div>
+                            <div class="time_message">{{message.date.substring(10)}}</div>
                         </div>
                         <!-- /.message -->
 
