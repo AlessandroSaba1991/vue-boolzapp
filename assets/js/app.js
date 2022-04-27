@@ -219,7 +219,8 @@ const app = new Vue({
       status: "sent",
     },
     input_search: "",
-    dropdown: false,
+    dropdown_message: false,
+    dropdown_chat: false,
     text_last_message: 'Ultimo accesso alle ',
     show_hour:true
   },
@@ -259,7 +260,18 @@ const app = new Vue({
     },
     delete_message(index) {
       this.contacts[this.contact_active].messages.splice(index, 1);
-      this.dropdown = false;
+      this.dropdown_message = false;
+    },
+    delete_all_message(){
+      this.contacts[this.contact_active].messages=[]
+      this.dropdown_chat=false
+    },
+    delete_chat(){
+      this.contacts.splice(this.contact_active,1)
+      this.dropdown_chat=false
+      if(this.contact_active === this.contacts.length){
+        this.contact_active--
+      }
     },
   }, 
 });

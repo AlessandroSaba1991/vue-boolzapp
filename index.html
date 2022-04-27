@@ -70,7 +70,7 @@
 
                 <section class="contacts">
 
-                    <div class="contact" v-for="(contact,index) in contacts"
+                    <div v-if="contacts.length > 0" class="contact" v-for="(contact,index) in contacts"
                         :class="contact_active === index ? 'active' : ''" @click="contact_active=index"
                         v-if="confronta(contact,index)">
 
@@ -107,9 +107,9 @@
 
                 <div class="article_header">
 
-                    <div class="contact_to_message">
+                    <div v-if="contacts.length > 0" class="contact_to_message">
                         <div class="img">
-                            <img :src="'./assets/img/avatar'+contacts[contact_active].avatar+'.jpg'"
+                            <img v-if="contacts.length > 0" :src="'./assets/img/avatar'+contacts[contact_active].avatar+'.jpg'"
                                 :alt="contacts[contact_active].name">
                         </div>
                         <!-- /.img -->
@@ -126,10 +126,19 @@
                     </div>
                     <!-- /.contact_to_message -->
 
-                    <div class="actions">
+                    <div class="actions_article" @mouseleave="dropdown_chat=false">
                         <i class="fa-solid fa-magnifying-glass fa-xl"></i>
                         <i class="fa-solid fa-paperclip fa-xl"></i>
-                        <i class="fa-solid fa-ellipsis-vertical fa-xl"></i>
+                        <i class="fa-solid fa-ellipsis-vertical fa-xl" @click="dropdown_chat === true ?dropdown_chat = false : dropdown_chat = true"></i>
+                        <div v-if="dropdown_chat" class="dropdown_chat">
+                            <p @click="delete_all_message">
+                                Delete All Message
+                            </p>
+                            <p @click="delete_chat">
+                                Delete Chat
+                            </p>
+                        </div>
+                        <!-- /.dropdown -->
                     </div>
                     <!-- /.actions -->
 
@@ -138,16 +147,16 @@
 
                 <div class="body_message">
 
-                    <div class="container">
+                    <div v-if="contacts.length > 0" class="container">
 
                         <div class="message" :class="message.status === 'sent' ? 'bg_green' : 'bg_white' "
-                            @mouseleave="dropdown=false" v-for="(message,index) in contacts[contact_active].messages">
+                            @mouseleave="dropdown_message=false" v-for="(message,index) in contacts[contact_active].messages">
                             <p v-if="contacts[contact_active].messages.length > 0">
                                 {{message.message}}
                             </p>
                             <div class="icon">
-                                <i class="fa-solid fa-chevron-down" @click="dropdown = true"></i>
-                                <div v-if="dropdown" class="dropdown">
+                                <i class="fa-solid fa-chevron-down" @click="dropdown_message === true ?dropdown_message = false : dropdown_message = true"></i>
+                                <div v-if="dropdown_message" class="dropdown_message">
                                     <p>Message info</p>
                                     <p @click="delete_message(index)">Delete message</p>
                                 </div>

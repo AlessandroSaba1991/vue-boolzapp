@@ -216,6 +216,7 @@ article {
 /* #region Header_body */
 
 .article_header {
+  height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -238,6 +239,32 @@ article {
   color: rgba(107, 115, 118, 1);
 }
 
+.actions_article {
+  position: relative;
+  z-index: 1;
+  padding: 15px 0;
+  margin-left: auto;
+  color: rgba(177, 177, 177, 1);
+}
+
+.actions_article > i {
+  margin-right: 1rem;
+}
+
+.dropdown_chat {
+  width: 230px;
+  position: absolute;
+  top: 80%;
+  right: 0%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px gray;
+  background-color: white;
+}
+
+.dropdown_chat > p {
+  padding: 1rem;
+}
 /* #endregion Header_body */
 
 /* #region Main_body */
@@ -274,7 +301,7 @@ article {
   z-index: 1;
 }
 
-.dropdown {
+.dropdown_message {
   width: 200px;
   position: absolute;
   top: 95%;
@@ -285,7 +312,7 @@ article {
   background-color: white;
 }
 
-.dropdown > p {
+.dropdown_message > p {
   padding: 1rem;
 }
 
