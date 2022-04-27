@@ -83,13 +83,13 @@
                             <!-- /.img -->
                             <div class="text">
                                 <h3>{{contact.name}}</h3>
-                                <p>{{contacts[index].messages[contacts[index].messages.length-1].message}}</p>
+                                <p v-if="contacts[index].messages.length > 0">{{contacts[index].messages[contacts[index].messages.length-1].message}}</p>
                             </div>
                             <!-- /.text -->
                         </div>
                         <!-- /.description_contact -->
                         <div class="date">
-                            <small>{{contacts[index].messages[contacts[index].messages.length-1].date.substring(10)}}</small>
+                            <small v-if="contacts[index].messages.length > 0">{{contacts[index].messages[contacts[index].messages.length-1].date.substring(10)}}</small>
                         </div>
                         <!-- /.date -->
                     </div>
@@ -113,7 +113,7 @@
                         <!-- /.img -->
                         <div class="text">
                             <h3>{{contacts[contact_active].name}}</h3>
-                            <p>
+                            <p v-if="contacts[contact_active].messages.length > 0">
                                 Ultimo accesso il
                                 {{contacts[contact_active].messages[contacts[contact_active].messages.length-1].date}}
                             </p>
@@ -137,7 +137,7 @@
 
                         <div class="message" :class="message.status === 'sent' ? 'bg_green' : 'bg_white' "
                             @mouseleave="dropdown=false" v-for="(message,index) in contacts[contact_active].messages">
-                            <p>{{message.message}}</p>
+                            <p v-if="contacts[contact_active].messages.length > 0">{{message.message}}</p>
                             <div class="icon">
                                 <i class="fa-solid fa-chevron-down" @click="dropdown = true"></i>
                                 <div v-if="dropdown" class="dropdown">
@@ -145,7 +145,7 @@
                                     <p @click="delete_message(index)">Delete message</p>
                                 </div>
                             </div>
-                            <div class="time_message">{{message.date.substring(10)}}</div>
+                            <div v-if="contacts[contact_active].messages.length > 0" class="time_message">{{message.date.substring(10)}}</div>
                         </div>
                         <!-- /.message -->
 
