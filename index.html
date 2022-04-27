@@ -15,15 +15,11 @@
 <body>
 
     <div id="app">
-
-        <header id="site_header"></header>
-        <!-- /#site_header -->
-
         <main id="site_main">
 
             <aside>
-
                 <section class="aside_header">
+
                     <div class="principal_contact">
                         <div class="img">
                             <img src="./assets/img/avatar_io.jpg" alt="me">
@@ -47,6 +43,7 @@
                 <!-- /.aside_header -->
 
                 <section class="section_notifiche">
+
                     <div class="img">
                         <i class="fa-solid fa-bell-slash fa-xl"></i>
                     </div>
@@ -56,8 +53,9 @@
                         <p>Attiva notifiche desktop</p>
                     </div>
                     <!-- /.text -->
+
                 </section>
-                <!-- /.notifiche -->
+                <!-- /.section_notifiche -->
 
                 <section class="section_search">
 
@@ -68,13 +66,11 @@
                     <input type="text" placeholder="Cerca o inizia una nuova chat" v-model="input_search">
 
                 </section>
-                <!-- /.search -->
+                <!-- /.section_search -->
 
                 <section class="contacts">
 
-                    <div class="contact" v-for="(contact,index) in contacts"
-                        :class="contact_active === index ? 'active' : ''" @click="contact_active=index"
-                        v-if="confronta(contact,index)">
+                    <div class="contact" v-for="(contact,index) in contacts" :class="contact_active === index ? 'active' : ''" @click="contact_active=index" v-if="confronta(contact,index)">
 
                         <div class="description_contact">
                             <div class="img">
@@ -83,13 +79,17 @@
                             <!-- /.img -->
                             <div class="text">
                                 <h3>{{contact.name}}</h3>
-                                <p v-if="contacts[index].messages.length > 0">{{contacts[index].messages[contacts[index].messages.length-1].message}}</p>
+                                <p v-if="contacts[index].messages.length > 0">
+                                    {{contacts[index].messages[contacts[index].messages.length-1].message}}
+                                </p>
                             </div>
                             <!-- /.text -->
                         </div>
                         <!-- /.description_contact -->
                         <div class="date">
-                            <small v-if="contacts[index].messages.length > 0">{{contacts[index].messages[contacts[index].messages.length-1].date.substring(10)}}</small>
+                            <small v-if="contacts[index].messages.length > 0">
+                                {{contacts[index].messages[contacts[index].messages.length-1].date.substring(10)}}
+                            </small>
                         </div>
                         <!-- /.date -->
                     </div>
@@ -107,20 +107,18 @@
 
                     <div class="contact_to_message">
                         <div class="img">
-                            <img :src="'./assets/img/avatar'+contacts[contact_active].avatar+'.jpg'"
-                                :alt="contacts[contact_active].name">
+                            <img :src="'./assets/img/avatar'+contacts[contact_active].avatar+'.jpg'" :alt="contacts[contact_active].name">
                         </div>
                         <!-- /.img -->
                         <div class="text">
                             <h3>{{contacts[contact_active].name}}</h3>
                             <p v-if="contacts[contact_active].messages.length > 0">
-                                Ultimo accesso il
-                                {{contacts[contact_active].messages[contacts[contact_active].messages.length-1].date}}
+                                Ultimo accesso il {{contacts[contact_active].messages[contacts[contact_active].messages.length-1].date}}
                             </p>
                         </div>
                         <!-- /.text -->
                     </div>
-                    <!-- /.principal_contact -->
+                    <!-- /.contact_to_message -->
 
                     <div class="actions">
                         <i class="fa-solid fa-magnifying-glass fa-xl"></i>
@@ -131,21 +129,29 @@
 
                 </div>
                 <!-- /.body_header -->
+
                 <div class="body_message">
 
                     <div class="container">
 
                         <div class="message" :class="message.status === 'sent' ? 'bg_green' : 'bg_white' "
                             @mouseleave="dropdown=false" v-for="(message,index) in contacts[contact_active].messages">
-                            <p v-if="contacts[contact_active].messages.length > 0">{{message.message}}</p>
+                            <p v-if="contacts[contact_active].messages.length > 0">
+                                {{message.message}}
+                            </p>
                             <div class="icon">
                                 <i class="fa-solid fa-chevron-down" @click="dropdown = true"></i>
                                 <div v-if="dropdown" class="dropdown">
                                     <p>Message info</p>
                                     <p @click="delete_message(index)">Delete message</p>
                                 </div>
+                                <!-- /.dropdown -->
                             </div>
-                            <div v-if="contacts[contact_active].messages.length > 0" class="time_message">{{message.date.substring(10)}}</div>
+                            <!-- /.icon -->
+                            <div class="time_message" v-if="contacts[contact_active].messages.length > 0" >
+                                {{message.date.substring(10)}}
+                            </div>
+                            <!-- /.time_message -->
                         </div>
                         <!-- /.message -->
 
@@ -154,16 +160,21 @@
 
                 </div>
                 <!-- /.body_message -->
+
                 <div class="body_footer">
 
                     <i class="fa-regular fa-face-smile fa-xl"></i>
-                    <input type="text" v-model="new_message.message" placeholder="Scrivi un messaggio"
-                        @keyup.enter="add_message">
-                    <i class="fa-solid fa-microphone fa-xl"></i>
+                    <form action="#" method="get" @submit.prevent="add_message" :disabled="submitDisabled">
+                        <input type="text" v-model="new_message.message" pattern="\s*(\S\s*){3,}" placeholder="Scrivi un messaggio" @keyup.enter required>
+                    </form>
+                    <i v-if="new_message.message.length>0" @click="add_message" class="fa-solid fa-paper-plane fa-xl"></i>
+                    <i v-else class="fa-solid fa-microphone fa-xl"></i>
+
                 </div>
                 <!-- /.body_footer -->
 
             </article>
+            <!-- /article -->
 
         </main>
         <!-- /#site_main -->

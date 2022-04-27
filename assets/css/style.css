@@ -7,7 +7,7 @@
 }
 
 body {
-  background: linear-gradient(rgba(221, 219, 209, 1), rgba(210, 219, 220, 1));
+  background: linear-gradient(to bottom ,rgba(0, 150, 136, 1) 140px ,rgba(221, 219, 209, 1) 140px, rgba(210, 219, 220, 1));
   height: 100vh;
   font-family: Helvetica, Arial, sans-serif;
 }
@@ -17,12 +17,18 @@ img {
   border-radius: 50%;
 }
 
+h3{
+  font-weight: 400;
+  margin-bottom: 0.25rem;
+}
+
 /* #endregion Common */
 
 /* #region Utility */
 
 :focus-visible {
   outline: none;
+  box-shadow: inset 0 0 0 1px lightgray;
 }
 
 .active {
@@ -39,14 +45,6 @@ img {
   padding-top: 3rem;
 }
 
-.message {
-  width: calc(100% / 12 * 5);
-  position: relative;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-}
-
 .bg_green {
   background-color: rgba(213, 249, 186, 1);
   margin-left: calc(100% / 12 * 7);
@@ -57,11 +55,6 @@ img {
 }
 
 /* #endregion Utility */
-
-header {
-  background-color: rgba(0, 150, 136, 1);
-  height: 200px;
-}
 
 #site_main {
   display: flex;
@@ -80,7 +73,7 @@ aside {
   background-color: white;
 }
 
-/* header */
+/* #region header_aside */
 .aside_header {
   display: flex;
   justify-content: space-between;
@@ -107,7 +100,9 @@ aside {
   margin-right: 1rem;
 }
 
-/* section notifiche */
+/* #endregion header_aside */
+
+/* #region Notifiche_section */
 
 .section_notifiche {
   display: flex;
@@ -122,10 +117,10 @@ aside {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-right: 1rem;
+  border-radius: 50%;
   background-color: white;
   color: rgba(142, 218, 252, 1);
-  border-radius: 50%;
-  margin-right: 1rem;
 }
 
 .section_notifiche p {
@@ -133,19 +128,21 @@ aside {
   color: rgba(107, 115, 118, 1);
 }
 
-/* section search */
+/* #endregion Notifiche_section */
+
+/* #region Search_section */
 
 .section_search {
+  display: flex;
   padding: 0.5rem;
   background-color: rgba(250, 250, 250, 1);
-  display: flex;
 }
 
 .section_search > input,
 .search {
+  border: 1px solid rgb(245, 245, 245, 1);
   background-color: white;
   color: rgba(177, 177, 177, 1);
-  border: 1px solid rgb(245, 245, 245, 1);
 }
 
 .search {
@@ -154,16 +151,18 @@ aside {
 }
 
 .section_search > input {
-  padding: 0.25rem 1rem;
   width: 100%;
+  padding: 0.25rem 1rem;
 }
 
-/* section contacts */
+/* #endregion Search_section */
+
+/* #region Contacts_section */
 
 .contacts {
-  background-color: white;
-  overflow-y: scroll;
   height: calc(100% - 209px);
+  overflow-y: scroll;
+  background-color: white;
 }
 
 .contact {
@@ -191,22 +190,27 @@ aside {
 .contact > .date {
   color: rgba(177, 177, 177, 1);
 }
+
+/* #endregion Contacts_section */
+
 /* #endregion Aside */
 
-/* #region Body */
+/* #region Article */
 
-/* header */
 article {
   width: 66%;
+
 }
+
+/* #region Header_body */
 
 .article_header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
-  background-color: rgba(234, 234, 234, 1);
   border-left: 1px solid rgba(214, 214, 214, 1);
+  background-color: rgba(234, 234, 234, 1);
 }
 
 .contact_to_message {
@@ -223,13 +227,31 @@ article {
   color: rgba(107, 115, 118, 1);
 }
 
-/* main */
+/* #endregion Header_body */
+
+/* #region Main_body */
 
 .body_message {
-  background-image: url(../img/mine.jpg);
   height: calc(100% - 140px);
   overflow-y: scroll;
   margin-top: -1px;
+  background-image: url(../img/mine.jpg);
+}
+
+.message {
+  width: calc(100% / 12 * 5);
+  position: relative;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+}
+
+.message>p{
+  width: 90%;
+}
+
+.message:hover .icon {
+  display: block;
 }
 
 .icon {
@@ -241,20 +263,15 @@ article {
   z-index: 1;
 }
 
-.message:hover .icon {
-  display: block;
-}
-
 .dropdown {
-  padding: 1rem;
-  position: absolute;
-  top: 100%;
-  background-color: white;
-  right: 0%;
-  word-break: none;
   width: 200px;
-  box-shadow: 0 0 10px gray;
+  position: absolute;
+  top: 95%;
+  right: 0%;
+  padding: 1rem;
   border-radius: 0.5rem;
+  box-shadow: 0 0 10px gray;
+  background-color: white;
 }
 
 .dropdown > p {
@@ -265,23 +282,34 @@ article {
   position: absolute;
   right: 0.25rem;
   bottom: 0.25rem;
-  font-size: 10px;
   color: rgba(177, 177, 177, 1);
+  font-size: 10px;
 }
 
-/* footer */
+/* #endregion Main_body */
+
+/* #region Footer_body */
 
 .body_footer {
-  background-color: rgba(243, 238, 234, 1);
   display: flex;
   justify-content: space-evenly;
-  padding: 0.75rem 0;
   align-items: center;
+  padding: 0.75rem 0;
+  background-color: rgba(243, 238, 234, 1);
 }
 
-.body_footer > input {
+.body_footer>form{
   width: 80%;
-  border: none;
+}
+
+.body_footer  input {
+  width: 100%;
   padding: 1rem;
+  border: none;
   border-radius: 0.25rem;
 }
+
+/* #endregion Footer_body */
+
+/* #endregion Article */
+
