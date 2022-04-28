@@ -359,6 +359,8 @@ const app = new Vue({
       if(this.contact_active === this.contacts.length){
         this.contact_active--
       }
+      this.aside_show=true
+      this.article_show=false
     },
     scroll_down(){      
         this.$refs.container.scrollIntoView(false)   
