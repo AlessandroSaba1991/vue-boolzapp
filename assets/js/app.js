@@ -226,6 +226,8 @@ const app = new Vue({
     input_search: "",
     new_contact_name:'',
     new_contact_img:'',
+    select_contact:true,
+    splash_page:false,
     dropdown_message: false,
     dropdown_chat: false,
     dropdown_add_contact:false,
@@ -234,6 +236,14 @@ const app = new Vue({
     search:''
   },
   methods: {
+    choose_chat(index){
+      this.contact_active=index
+      this.select_contact = false
+      this.splash_page = true
+      setTimeout(function(){
+        app.splash_page = false
+      },1000)
+    },
     insert(emoji) {
       this.new_message += emoji
     },
@@ -320,7 +330,4 @@ const app = new Vue({
         this.$refs.container.scrollIntoView(false)   
     }
   },
-  beforeUpdate: function(){
-    
-  } 
 });

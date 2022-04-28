@@ -77,6 +77,69 @@ h3 {
   transform: translate(-50%, -50%);
 }
 
+.chat_selector {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  height: 90vh;
+  width: 100%;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px 2px green;
+  background-color: aquamarine;
+  overflow-y: auto;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 2.5rem;
+  padding: 2rem;
+  align-content: flex-start;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+  margin: 0 2rem;
+}
+
+.card > .img {
+  width: 50%
+}
+
+.splash_page {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 50%;
+  aspect-ratio: 2 / 1;
+  background-image: url(https://media-assets.wired.it/photos/615da134fea834cd5545cacb/master/w_1600%2Cc_limit/whatsapp-multi-dispositivo.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  animation: enter 500ms linear;
+}
+@keyframes enter {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 /* #region Aside */
 aside {
   width: 34%;
@@ -112,7 +175,7 @@ aside {
   margin-right: 1rem;
 }
 
-.dropdown_add_contact{
+.dropdown_add_contact {
   position: absolute;
   top: 100%;
   right: -8px;
@@ -122,23 +185,22 @@ aside {
   box-shadow: 0 0 10px lightgray;
 }
 
-.dropdown_add_contact>input{
+.dropdown_add_contact > input {
   border: 1px solid lightgray;
   margin: 1rem 0;
   padding: 1rem 0.25rem;
 }
 
-.dropdown_add_contact>button{
+.dropdown_add_contact > button {
   background-color: transparent;
   border: 1px solid lightgrey;
   border-radius: 0.5rem;
-  padding: 1rem;  
+  padding: 1rem;
 }
 
-.dropdown_add_contact>button[type="submit"]{
+.dropdown_add_contact > button[type="submit"] {
   background-color: blue;
-  color:white;
-  
+  color: white;
 }
 
 /* #endregion header_aside */
@@ -373,21 +435,21 @@ article {
   background-color: rgba(243, 238, 234, 1);
 }
 
-.emoji{
+.emoji {
   position: absolute;
-    bottom: 92%;
-    left: 2%;
-    width: 52%;
-    height: 250px;
-    overflow-y: scroll;
-    background-color: white;
-    padding: 1rem 0.5rem;
-    border: 1px solid lightgray;
-    border-radius: 0.5rem;
-    box-shadow: 0 0 10px 5px lightgrey;
+  bottom: 92%;
+  left: 2%;
+  width: 52%;
+  height: 250px;
+  overflow-y: scroll;
+  background-color: white;
+  padding: 1rem 0.5rem;
+  border: 1px solid lightgray;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px 5px lightgrey;
 }
 
-.body_footer .emoji_input{
+.body_footer .emoji_input {
   border: 1px solid lightgrey;
   margin-bottom: 0.5rem;
 }
