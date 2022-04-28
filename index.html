@@ -15,8 +15,14 @@
 <body>
 
     <div id="app">
-        <main id="site_main">
-
+        <div class="zoom">
+            <i @click="zoom_in" class="fa-solid fa-plus fa-xl"></i>
+            <i @click="zoom_out" class="fa-solid fa-minus fa-xl"></i>
+            <br>
+            <button>Light</button>
+            <button>Dark</button>
+        </div>
+        <main id="site_main" ref="site_main">
             <div class="chat_selector" v-if="select_contact">
                 <h2>Benvenuto su Boolzapp</h2>
                 <h3>seleziona il contatto con cui vuoi parlare</h3>
@@ -26,7 +32,7 @@
                             <img :src="img_normal(contact)" :alt="contact.name">
                         </div>
                         <div class="text">
-                            <h4>{{contact.name}}</h4>
+                            <h3>{{contact.name}}</h3>
                         </div>
                     </div>
                 </div>
@@ -34,7 +40,7 @@
 
             <div class="splash_page" v-if="splash_page">            
             </div>
-            <aside>
+            <aside v-if="aside_show">
                 <section class="aside_header">
 
                     <div class="principal_contact">
@@ -100,7 +106,7 @@
                 <section class="contacts" v-if="contacts.length > 0">
 
                     <div class="contact" v-for="(contact,index) in contacts"
-                        :class="contact_active === index ? 'active' : ''" @click="contact_active=index"
+                        :class="contact_active === index ? 'active' : ''" @click="select_chat(index)"
                         v-if="confronta(contact,index)">
 
                         <div class="description_contact">
@@ -132,11 +138,14 @@
 
             </aside>
 
-            <article>
+            <article v-if="article_show">
 
                 <div class="article_header">
 
                     <div v-if="contacts.length > 0" class="contact_to_message">
+                        <div class="return">
+                            <i @click="come_back" class="fa-solid fa-arrow-alt-circle-left fa-xl"></i>
+                        </div>
                         <div class="img">
                             <img v-if="contacts.length > 0" :src="img_active()" :alt="contacts[contact_active].name">
                         </div>

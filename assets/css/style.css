@@ -19,6 +19,7 @@ body {
   );
   height: 100vh;
   font-family: Helvetica, Arial, sans-serif;
+  
 }
 
 img {
@@ -63,6 +64,18 @@ h3 {
 
 .bg_white {
   background-color: white;
+}
+
+.zoom {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  padding: 0.5rem;
+  color: white;
+}
+
+.zoom>i{
+  padding: 0.5rem;
 }
 
 /* #endregion Utility */
@@ -111,7 +124,8 @@ h3 {
 }
 
 .card > .img {
-  width: 50%
+  min-width: 60px;
+  width: 50%;
 }
 
 .splash_page {
@@ -128,21 +142,10 @@ h3 {
   background-size: cover;
   animation: enter 500ms linear;
 }
-@keyframes enter {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 
 /* #region Aside */
 aside {
-  width: 34%;
+  width: 100%;
   height: 100%;
   background-color: white;
 }
@@ -226,6 +229,16 @@ aside {
   color: rgba(142, 218, 252, 1);
 }
 
+.section_notifiche > .text {
+  width: calc(100% - (55px + 1rem));
+}
+
+.section_notifiche h3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .section_notifiche p {
   text-decoration: underline;
   color: rgba(107, 115, 118, 1);
@@ -269,6 +282,7 @@ aside {
 }
 
 .contact {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 0.5rem;
@@ -279,7 +293,6 @@ aside {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 270px;
 }
 
 .contact:first-child {
@@ -289,6 +302,7 @@ aside {
 .description_contact {
   display: flex;
   padding-left: 0.5rem;
+  width: 80%;
 }
 
 .description_contact > .img {
@@ -296,11 +310,19 @@ aside {
   margin-right: 1rem;
 }
 
+.description_contact > .text {
+  width: calc(100% - (60px + 1rem));
+}
+
 .description_contact p,
 .contact > .date {
   color: rgba(177, 177, 177, 1);
 }
 
+.contact > .date {
+  width: 20%;
+  text-align: right;
+}
 /* #endregion Contacts_section */
 
 /* #endregion Aside */
@@ -308,19 +330,22 @@ aside {
 /* #region Article */
 
 article {
-  width: 66%;
+  width: 100%;
 }
 
 /* #region Header_body */
 
 .article_header {
-  height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
   border-left: 1px solid rgba(214, 214, 214, 1);
   background-color: rgba(234, 234, 234, 1);
+}
+
+.return {
+  color: rgba(177, 177, 177, 1);
 }
 
 .contact_to_message {
@@ -468,3 +493,18 @@ article {
 /* #endregion Footer_body */
 
 /* #endregion Article */
+
+/* Animation */
+@keyframes enter {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* media */

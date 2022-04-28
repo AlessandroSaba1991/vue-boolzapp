@@ -222,12 +222,15 @@ const app = new Vue({
       'Non prendere la vita troppo sul serio. Non ne uscirai vivo.'
     ],
     contact_active: 0,
+    font_size:1,
     new_message: "",
     input_search: "",
     new_contact_name:'',
     new_contact_img:'',
     select_contact:true,
     splash_page:false,
+    aside_show:false,
+    article_show:false,
     dropdown_message: false,
     dropdown_chat: false,
     dropdown_add_contact:false,
@@ -236,13 +239,33 @@ const app = new Vue({
     search:''
   },
   methods: {
+    zoom_in(){
+      this.font_size+=0.2
+      const element = this.$refs.site_main
+      element.style.cssText = 'font-size:' + this.font_size + 'rem'      
+    },
+    zoom_out(){
+      this.font_size-=0.2
+      const element = this.$refs.site_main
+      element.style.cssText = 'font-size:' + this.font_size + 'rem' 
+    },
     choose_chat(index){
       this.contact_active=index
       this.select_contact = false
       this.splash_page = true
       setTimeout(function(){
         app.splash_page = false
+        app.article_show=true
       },1000)
+    },
+    come_back(){
+      this.article_show=false
+      this.aside_show=true
+    },
+    select_chat(index){
+      this.contact_active=index
+      this.aside_show=false
+      this.article_show=true
     },
     insert(emoji) {
       this.new_message += emoji
