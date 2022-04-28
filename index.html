@@ -157,7 +157,7 @@
 
                 <div class="body_message">
 
-                    <div v-if="contacts.length > 0" class="container">
+                    <div v-if="contacts.length > 0" class="container" ref="container">
 
                         <div class="message" :class="message.status === 'sent' ? 'bg_green' : 'bg_white' "
                             @mouseleave="dropdown_message=false" v-for="(message,index) in contacts[contact_active].messages">
@@ -188,15 +188,39 @@
 
                 <div class="body_footer">
 
-                    <i class="fa-regular fa-face-smile fa-xl"></i>
+                    
+                    <emoji-picker @emoji="insert" :search="search">
+                        <div slot="emoji-invoker" slot-scope="{ events: { click: clickEvent } }" @click.stop="clickEvent">
+                            <i class="fa-regular fa-face-smile fa-xl"></i>
+                        </div>
+                        <div class="emoji" slot="emoji-picker" slot-scope="{ emojis, insert, display }">
+                          <div>
+                            <div>
+                              <input class="emoji_input" type="text" v-model="search">
+                            </div>
+                            <div>
+                              <div v-for="(emojiGroup, category) in emojis" :key="category">
+                                <h5>{{ category }}</h5>
+                                <div>
+                                  <span
+                                    v-for="(emoji, emojiName) in emojiGroup"
+                                    :key="emojiName"
+                                    @click="insert(emoji)"
+                                    :title="emojiName"
+                                  >{{ emoji }}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </emoji-picker>
                     <form action="#" method="get" @submit.prevent="add_message">
-                        <input type="text" v-model="new_message" pattern="\s*(\S\s*){3,}"
+                        <input type="text" v-model="new_message" pattern="\s*(\S\s*){1,}"
                             placeholder="Scrivi un messaggio" @keyup.enter required>
                     </form>
                     <i v-if="new_message.length>0" @click="add_message"
                         class="fa-solid fa-paper-plane fa-xl"></i>
                     <i v-else class="fa-solid fa-microphone fa-xl"></i>
-
                 </div>
                 <!-- /.body_footer -->
 
@@ -215,8 +239,7 @@
 
 
     <script src='https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js'></script>
-    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
-    <script>dayjs().format('it')</script>
+    <script src="https://unpkg.com/vue-emoji-picker/dist/vue-emoji-picker.js"></script>
     <script src="./assets/js/app.js"></script>
 </body>
 

@@ -33,8 +33,16 @@ A) rendere l'app responsive e fruibile anche su mobile: di default si visualizza
 aggiungere un'icona per ingrandire o rimpicciolire il font: dovrebbe essere sufficiente aggiungere una classe al wrapper principale
 aggiungere un'icona per cambiare la modalità light/dark: dovrebbe essere sufficiente aggiungere una classe al wrapper principale
 */
+Vue.use(EmojiPicker)
+
 const app = new Vue({
   el: "#app",
+  data() {
+    return {
+      input: '',
+      search: '',
+    }
+  },
   data: {
     contacts: [
       {
@@ -222,9 +230,13 @@ const app = new Vue({
     dropdown_chat: false,
     dropdown_add_contact:false,
     text_last_message: 'Ultimo accesso alle ',
-    show_hour:true
+    show_hour:true,
+    search:''
   },
   methods: {
+    insert(emoji) {
+      this.new_message += emoji
+    },
     img_normal(contact){
       if(contact.avatar.length > 2){
         return contact.avatar
@@ -305,13 +317,10 @@ const app = new Vue({
       }
     },
     scroll_down(){      
-        const element=document.querySelector('.container')
-        element.scrollIntoView(false)
-        console.log('ciao');   
+        this.$refs.container.scrollIntoView(false)   
     }
   },
   beforeUpdate: function(){
     
   } 
 });
-console.log(dayjs().format());
