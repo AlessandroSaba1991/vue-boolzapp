@@ -16,14 +16,15 @@ Ricerca utenti: scrivendo qualcosa nell’input a sinistra, vengono visualizzati
 /* 
 Funzionalità
 evitare che l'utente possa inviare un messaggio vuoto o composto solamente da spazi
-A) cambiare icona in basso a destra (a fianco all'input per scrivere un nuovo messaggio) finché l'utente sta scrivendo: di default si visualizza l'icona del microfono, quando l'input non è vuoto si visualizza l'icona dell'aeroplano. Quando il messaggio è stato inviato e l'input si svuota, si torna a visualizzare il microfono. B) inviare quindi il messaggio anche cliccando sull'icona dell'aeroplano
+A) cambiare icona in basso a destra (a fianco all'input per scrivere un nuovo messaggio) finché l'utente sta scrivendo: di default si visualizza l'icona del microfono, quando l'input non è vuoto si visualizza l'icona dell'aeroplano. Quando il messaggio è stato inviato e l'input si svuota, si torna a visualizzare il microfono. 
+B) inviare quindi il messaggio anche cliccando sull'icona dell'aeroplano
 predisporre una lista di frasi e/o citazioni da utilizzare al posto della risposta "ok:" quando il pc risponde, anziché scrivere "ok", scegliere una frase random dalla lista e utilizzarla come testo del messaggio di risposta del pc
-visualizzare nella lista dei contatti l'ultimo messaggio inviato/ricevuto da ciascun contatto
-inserire l'orario corretto nei messaggi (v. note day.js)
-sotto al nome del contatto nella parte in alto a destra, cambiare l'indicazione dello stato: visualizzare il testo "sta scrivendo..." nel timeout in cui il pc risponde, poi mantenere la scritta "online" per un paio di secondi e infine visualizzare "ultimo accesso alle xx:yy" con l'orario corretto
-dare la possibilità all'utente di cancellare tutti i messaggi di un contatto o di cancellare l'intera chat con tutti i suoi dati: cliccando sull'icona con i tre pallini in alto a destra, si apre un dropdown menu in cui sono presenti le voci "Elimina messaggi" ed "Elimina chat"; cliccando su di essi si cancellano rispettivamente tutti i messaggi di quel contatto (quindi rimane la conversazione vuota) oppure l'intera chat comprensiva di tutti i dati del contatto oltre che tutti i suoi messaggi (quindi sparisce il contatto anche dalla lista di sinistra)
-dare la possibilità all'utente di aggiungere una nuova conversazione, inserendo in un popup il nome e il link all'icona del nuovo contatto
-fare scroll in giù in automatico fino al messaggio più recente, quando viene aggiunto un nuovo messaggio alla conversazione (NB: potrebbe esserci bisogno di utilizzare nextTick: https://vuejs.org/v2/api/#Vue-nextTick)
+C)visualizzare nella lista dei contatti l'ultimo messaggio inviato/ricevuto da ciascun contatto
+inserire l'orario corretto nei messaggi (v. note day.js) 
+D)sotto al nome del contatto nella parte in alto a destra, cambiare l'indicazione dello stato: visualizzare il testo "sta scrivendo..." nel timeout in cui il pc risponde, poi mantenere la scritta "online" per un paio di secondi e infine visualizzare "ultimo accesso alle xx:yy" con l'orario corretto
+E)dare la possibilità all'utente di cancellare tutti i messaggi di un contatto o di cancellare l'intera chat con tutti i suoi dati: cliccando sull'icona con i tre pallini in alto a destra, si apre un dropdown menu in cui sono presenti le voci "Elimina messaggi" ed "Elimina chat"; cliccando su di essi si cancellano rispettivamente tutti i messaggi di quel contatto (quindi rimane la conversazione vuota) oppure l'intera chat comprensiva di tutti i dati del contatto oltre che tutti i suoi messaggi (quindi sparisce il contatto anche dalla lista di sinistra)
+F)dare la possibilità all'utente di aggiungere una nuova conversazione, inserendo in un popup il nome e il link all'icona del nuovo contatto
+G)fare scroll in giù in automatico fino al messaggio più recente, quando viene aggiunto un nuovo messaggio alla conversazione (NB: potrebbe esserci bisogno di utilizzare nextTick: https://vuejs.org/v2/api/#Vue-nextTick)
 aggiungere le emoticons, tramite l'utilizzo di una libreria, ad esempio: https://www.npmjs.com/package/vue-emoji-picker
 Grafica
 visualizzare un messaggio di benvenuto che invita l'utente a selezionare un contatto dalla lista per visualizzare i suoi messaggi, anziché attivare di default la prima conversazione
@@ -213,26 +214,41 @@ const app = new Vue({
       'Non prendere la vita troppo sul serio. Non ne uscirai vivo.'
     ],
     contact_active: 0,
-    new_message: {
-      date: new Date().toLocaleString(),
-      message: "",
-      status: "sent",
-    },
+    new_message: "",
     input_search: "",
+    new_contact_name:'',
+    new_contact_img:'',
     dropdown_message: false,
     dropdown_chat: false,
+    dropdown_add_contact:false,
     text_last_message: 'Ultimo accesso alle ',
     show_hour:true
   },
   methods: {
+    img_normal(contact){
+      if(contact.avatar.length > 2){
+        return contact.avatar
+      } else {
+        return './assets/img/avatar'+contact.avatar+'.jpg'
+      }
+    },
+    img_active(){
+      const avatar = this.contacts[this.contact_active].avatar
+      if(avatar.length > 2){
+        return avatar
+      } else {
+        return './assets/img/avatar'+avatar+'.jpg'
+      }
+    },
     add_message() {
       this.show_hour = false
-      this.contacts[this.contact_active].messages.push(this.new_message);
-      this.new_message = {
+      const message_send= {
         date: new Date().toLocaleString(),
-        message: "",
+        message: this.new_message,
         status: "sent",
-      };
+      }
+      this.contacts[this.contact_active].messages.push(message_send);
+      this.new_message = ''
       this.text_last_message ='Sta scrivendo...'
       setTimeout(function () {
         const messaggio = {
@@ -247,6 +263,19 @@ const app = new Vue({
         app.text_last_message = 'Ultimo accesso alle '
         app.show_hour = true
       },3000)
+    },
+    add_contact(){
+      const new_contact = {
+        name: this.new_contact_name,
+        avatar: this.new_contact_img,
+        visible: true,
+        messages: [],
+      }
+      this.contacts.unshift(new_contact)
+      this.new_contact_name = ''
+      this.new_contact_img = ''
+      this.dropdown_add_contact = false
+      this.contact_active=0
     },
     confronta(contact, index) {
       const nome = contact.name.toLowerCase();

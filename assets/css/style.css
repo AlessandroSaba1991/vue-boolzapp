@@ -20,6 +20,8 @@ body {
 img {
   max-width: 100%;
   border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
 }
 
 h3 {
@@ -98,11 +100,41 @@ aside {
 }
 
 .actions {
+  position: relative;
   color: rgba(177, 177, 177, 1);
 }
 
 .actions > i {
   margin-right: 1rem;
+}
+
+.dropdown_add_contact{
+  position: absolute;
+  top: 100%;
+  right: -8px;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  box-shadow: 0 0 10px lightgray;
+}
+
+.dropdown_add_contact>input{
+  border: 1px solid lightgray;
+  margin: 1rem 0;
+  padding: 1rem 0.25rem;
+}
+
+.dropdown_add_contact>button{
+  background-color: transparent;
+  border: 1px solid lightgrey;
+  border-radius: 0.5rem;
+  padding: 1rem;  
+}
+
+.dropdown_add_contact>button[type="submit"]{
+  background-color: blue;
+  color:white;
+  
 }
 
 /* #endregion header_aside */

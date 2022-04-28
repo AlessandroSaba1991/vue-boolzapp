@@ -34,8 +34,18 @@
 
                     <div class="actions">
                         <i class="fa-solid fa-circle-notch fa-xl"></i>
-                        <i class="fa-solid fa-message fa-xl"></i>
+                        <i @click="dropdown_add_contact === true ?dropdown_add_contact = false : dropdown_add_contact = true" class="fa-solid fa-message fa-xl"></i>
                         <i class="fa-solid fa-ellipsis-vertical fa-xl"></i>
+                        <form v-if="dropdown_add_contact" action="#" method="get" class="dropdown_add_contact" @submit.prevent="add_contact">
+                            <label for="nome">Inserisci il nome</label>
+                            <input type="text" v-model="new_contact_name" pattern="\s*(\S\s*){3,}" name="nome"
+                            placeholder="Ex. Alessandro" @keyup.enter required>
+                            <label for="img">Inserisci un immagine</label>
+                            <input type="text" v-model="new_contact_img" pattern="\s*(\S\s*){1,}" name="img"
+                            placeholder="add image" @keyup.enter required>
+                            <button type="submit">Aggiungi</button>
+                            <button type="reset">Cancella</button>
+                        </form>
                     </div>
                     <!-- /.actions -->
 
@@ -68,15 +78,15 @@
                 </section>
                 <!-- /.section_search -->
 
-                <section class="contacts">
+                <section class="contacts"  v-if="contacts.length > 0">
 
-                    <div v-if="contacts.length > 0" class="contact" v-for="(contact,index) in contacts"
+                    <div class="contact" v-for="(contact,index) in contacts"
                         :class="contact_active === index ? 'active' : ''" @click="contact_active=index"
                         v-if="confronta(contact,index)">
 
                         <div class="description_contact">
                             <div class="img">
-                                <img :src="'./assets/img/avatar'+contact.avatar+'.jpg'" :alt="contact.name">
+                                <img :src="img_normal(contact)" :alt="contact.name">
                             </div>
                             <!-- /.img -->
                             <div class="text">
@@ -109,7 +119,7 @@
 
                     <div v-if="contacts.length > 0" class="contact_to_message">
                         <div class="img">
-                            <img v-if="contacts.length > 0" :src="'./assets/img/avatar'+contacts[contact_active].avatar+'.jpg'"
+                            <img v-if="contacts.length > 0" :src="img_active()"
                                 :alt="contacts[contact_active].name">
                         </div>
                         <!-- /.img -->
@@ -180,10 +190,10 @@
 
                     <i class="fa-regular fa-face-smile fa-xl"></i>
                     <form action="#" method="get" @submit.prevent="add_message">
-                        <input type="text" v-model="new_message.message" pattern="\s*(\S\s*){3,}"
+                        <input type="text" v-model="new_message" pattern="\s*(\S\s*){3,}"
                             placeholder="Scrivi un messaggio" @keyup.enter required>
                     </form>
-                    <i v-if="new_message.message.length>0" @click="add_message"
+                    <i v-if="new_message.length>0" @click="add_message"
                         class="fa-solid fa-paper-plane fa-xl"></i>
                     <i v-else class="fa-solid fa-microphone fa-xl"></i>
 
