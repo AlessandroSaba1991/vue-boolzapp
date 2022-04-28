@@ -227,6 +227,7 @@ const app = new Vue({
     input_search: "",
     new_contact_name:'',
     new_contact_img:'',
+    theme_mode:'Dark Theme',
     select_contact:true,
     splash_page:false,
     aside_show:false,
@@ -239,6 +240,14 @@ const app = new Vue({
     search:''
   },
   methods: {
+    change_mode(){
+      this.$refs.wrapper.classList.toggle('color_dark')
+      if(this.theme_mode==='Dark Theme'){
+        this.theme_mode='Light Theme'
+      } else{
+        this.theme_mode='Dark Theme'
+      }
+    },
     zoom_in(){
       this.font_size+=0.2
       const element = this.$refs.site_main
@@ -323,6 +332,8 @@ const app = new Vue({
       this.new_contact_img = ''
       this.dropdown_add_contact = false
       this.contact_active=0
+      this.aside_show=false
+      this.article_show=true
     },
     confronta(contact, index) {
       const nome = contact.name.toLowerCase();

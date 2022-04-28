@@ -15,246 +15,249 @@
 <body>
 
     <div id="app">
-        <div class="zoom">
-            <i @click="zoom_in" class="fa-solid fa-plus fa-xl"></i>
-            <i @click="zoom_out" class="fa-solid fa-minus fa-xl"></i>
-            <br>
-            <button>Light</button>
-            <button>Dark</button>
-        </div>
-        <main id="site_main" ref="site_main">
-            <div class="chat_selector" v-if="select_contact">
-                <h2>Benvenuto su Boolzapp</h2>
-                <h3>seleziona il contatto con cui vuoi parlare</h3>
-                <div class="row">
-                    <div class="card" v-for="(contact,index) in contacts" @click="choose_chat(index)">
-                        <div class="img">
-                            <img :src="img_normal(contact)" :alt="contact.name">
-                        </div>
-                        <div class="text">
-                            <h3>{{contact.name}}</h3>
-                        </div>
-                    </div>
-                </div>
+        <div class="wrapper" ref="wrapper">
+            <div class="zoom">
+                <i @click="zoom_in" class="fa-solid fa-plus fa-xl"></i>
+                <i @click="zoom_out" class="fa-solid fa-minus fa-xl"></i>
+                <br>
+                <button class="btn" @click="change_mode">{{theme_mode}}</button>
             </div>
-
-            <div class="splash_page" v-if="splash_page">            
-            </div>
-            <aside v-if="aside_show">
-                <section class="aside_header">
-
-                    <div class="principal_contact">
-                        <div class="img">
-                            <img src="./assets/img/avatar_io.jpg" alt="me">
-                        </div>
-                        <!-- /.img -->
-                        <div class="text">
-                            <h3>Sofia</h3>
-                        </div>
-                        <!-- /.text -->
-                    </div>
-                    <!-- /.principal_contact -->
-
-                    <div class="actions">
-                        <i class="fa-solid fa-circle-notch fa-xl"></i>
-                        <i @click="dropdown_add_contact === true ?dropdown_add_contact = false : dropdown_add_contact = true"
-                            class="fa-solid fa-message fa-xl"></i>
-                        <i class="fa-solid fa-ellipsis-vertical fa-xl"></i>
-                        <form v-if="dropdown_add_contact" action="#" method="get" class="dropdown_add_contact"
-                            @submit.prevent="add_contact">
-                            <label for="nome">Inserisci il nome</label>
-                            <input type="text" v-model="new_contact_name" pattern="\s*(\S\s*){3,}" name="nome"
-                                placeholder="Ex. Alessandro" @keyup.enter required>
-                            <label for="img">Inserisci un immagine</label>
-                            <input type="text" v-model="new_contact_img" pattern="\s*(\S\s*){1,}" name="img"
-                                placeholder="add image" @keyup.enter required>
-                            <button type="submit">Aggiungi</button>
-                            <button type="reset">Cancella</button>
-                        </form>
-                    </div>
-                    <!-- /.actions -->
-
-                </section>
-                <!-- /.aside_header -->
-
-                <section class="section_notifiche">
-
-                    <div class="img">
-                        <i class="fa-solid fa-bell-slash fa-xl"></i>
-                    </div>
-                    <!-- /.img -->
-                    <div class="text">
-                        <h3>Ricevi notifiche di nuovi messaggi</h3>
-                        <p>Attiva notifiche desktop</p>
-                    </div>
-                    <!-- /.text -->
-
-                </section>
-                <!-- /.section_notifiche -->
-
-                <section class="section_search">
-
-                    <button class="search">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                    <!-- /.search -->
-                    <input type="text" placeholder="Cerca o inizia una nuova chat" v-model="input_search">
-
-                </section>
-                <!-- /.section_search -->
-
-                <section class="contacts" v-if="contacts.length > 0">
-
-                    <div class="contact" v-for="(contact,index) in contacts"
-                        :class="contact_active === index ? 'active' : ''" @click="select_chat(index)"
-                        v-if="confronta(contact,index)">
-
-                        <div class="description_contact">
+            <main id="site_main" ref="site_main">
+                <div class="chat_selector" v-if="select_contact">
+                    <h2>Benvenuto su Boolzapp</h2>
+                    <h3>seleziona il contatto con cui vuoi parlare</h3>
+                    <div class="row">
+                        <div class="card" v-for="(contact,index) in contacts" @click="choose_chat(index)">
                             <div class="img">
                                 <img :src="img_normal(contact)" :alt="contact.name">
                             </div>
-                            <!-- /.img -->
                             <div class="text">
                                 <h3>{{contact.name}}</h3>
-                                <p v-if="contacts[index].messages.length > 0">
-                                    {{contacts[index].messages[contacts[index].messages.length-1].message}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="splash_page" v-if="splash_page">
+                </div>
+                <aside v-if="aside_show">
+                    <section class="aside_header">
+
+                        <div class="principal_contact">
+                            <div class="img">
+                                <img src="./assets/img/avatar_io.jpg" alt="me">
+                            </div>
+                            <!-- /.img -->
+                            <div class="text">
+                                <h3>Sofia</h3>
+                            </div>
+                            <!-- /.text -->
+                        </div>
+                        <!-- /.principal_contact -->
+
+                        <div class="actions">
+                            <i class="fa-solid fa-circle-notch fa-xl"></i>
+                            <i @click="dropdown_add_contact === true ?dropdown_add_contact = false : dropdown_add_contact = true"
+                                class="fa-solid fa-message fa-xl"></i>
+                            <i class="fa-solid fa-ellipsis-vertical fa-xl"></i>
+                            <form v-if="dropdown_add_contact" action="#" method="get" class="dropdown_add_contact"
+                                @submit.prevent="add_contact">
+                                <label for="nome">Inserisci il nome</label>
+                                <input type="text" v-model="new_contact_name" pattern="\s*(\S\s*){3,}" name="nome"
+                                    placeholder="Ex. Alessandro" @keyup.enter required>
+                                <label for="img">Inserisci un immagine</label>
+                                <input type="text" v-model="new_contact_img" pattern="\s*(\S\s*){1,}" name="img"
+                                    placeholder="add image" @keyup.enter required>
+                                <button type="submit">Aggiungi</button>
+                                <button type="reset">Cancella</button>
+                            </form>
+                        </div>
+                        <!-- /.actions -->
+
+                    </section>
+                    <!-- /.aside_header -->
+
+                    <section class="section_notifiche">
+
+                        <div class="img">
+                            <i class="fa-solid fa-bell-slash fa-xl"></i>
+                        </div>
+                        <!-- /.img -->
+                        <div class="text">
+                            <h3>Ricevi notifiche di nuovi messaggi</h3>
+                            <p>Attiva notifiche desktop</p>
+                        </div>
+                        <!-- /.text -->
+
+                    </section>
+                    <!-- /.section_notifiche -->
+
+                    <section class="section_search">
+
+                        <button class="search">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                        <!-- /.search -->
+                        <input type="text" placeholder="Cerca o inizia una nuova chat" v-model="input_search">
+
+                    </section>
+                    <!-- /.section_search -->
+
+                    <section class="contacts" v-if="contacts.length > 0">
+
+                        <div class="contact" v-for="(contact,index) in contacts"
+                            :class="contact_active === index ? 'active' : ''" @click="select_chat(index)"
+                            v-if="confronta(contact,index)">
+
+                            <div class="description_contact">
+                                <div class="img">
+                                    <img :src="img_normal(contact)" :alt="contact.name">
+                                </div>
+                                <!-- /.img -->
+                                <div class="text">
+                                    <h3>{{contact.name}}</h3>
+                                    <p v-if="contacts[index].messages.length > 0">
+                                        {{contacts[index].messages[contacts[index].messages.length-1].message}}
+                                    </p>
+                                </div>
+                                <!-- /.text -->
+                            </div>
+                            <!-- /.description_contact -->
+                            <div class="date">
+                                <small v-if="contacts[index].messages.length > 0">
+                                    {{contacts[index].messages[contacts[index].messages.length-1].date.substring(11,16)}}
+                                </small>
+                            </div>
+                            <!-- /.date -->
+                        </div>
+                        <!-- /.contact -->
+
+                    </section>
+                    <!-- /.contacts -->
+
+
+                </aside>
+
+                <article v-if="article_show">
+
+                    <div class="article_header">
+
+                        <div v-if="contacts.length > 0" class="contact_to_message">
+                            <div class="return">
+                                <i @click="come_back" class="fa-solid fa-arrow-alt-circle-left fa-xl"></i>
+                            </div>
+                            <div class="img">
+                                <img v-if="contacts.length > 0" :src="img_active()"
+                                    :alt="contacts[contact_active].name">
+                            </div>
+                            <!-- /.img -->
+                            <div class="text">
+                                <h3>{{contacts[contact_active].name}}</h3>
+                                <p v-if="contacts[contact_active].messages.length > 0">
+                                    <span>{{text_last_message}}</span>
+                                    <span v-if="show_hour">
+                                        {{this.contacts[this.contact_active].messages[this.contacts[this.contact_active].messages.length-1].date.substring(11,16)}}
+                                    </span>
                                 </p>
                             </div>
                             <!-- /.text -->
                         </div>
-                        <!-- /.description_contact -->
-                        <div class="date">
-                            <small v-if="contacts[index].messages.length > 0">
-                                {{contacts[index].messages[contacts[index].messages.length-1].date.substring(11,16)}}
-                            </small>
-                        </div>
-                        <!-- /.date -->
-                    </div>
-                    <!-- /.contact -->
+                        <!-- /.contact_to_message -->
 
-                </section>
-                <!-- /.contacts -->
-
-
-            </aside>
-
-            <article v-if="article_show">
-
-                <div class="article_header">
-
-                    <div v-if="contacts.length > 0" class="contact_to_message">
-                        <div class="return">
-                            <i @click="come_back" class="fa-solid fa-arrow-alt-circle-left fa-xl"></i>
-                        </div>
-                        <div class="img">
-                            <img v-if="contacts.length > 0" :src="img_active()" :alt="contacts[contact_active].name">
-                        </div>
-                        <!-- /.img -->
-                        <div class="text">
-                            <h3>{{contacts[contact_active].name}}</h3>
-                            <p v-if="contacts[contact_active].messages.length > 0">
-                                <span>{{text_last_message}}</span>
-                                <span v-if="show_hour">
-                                    {{this.contacts[this.contact_active].messages[this.contacts[this.contact_active].messages.length-1].date.substring(11,16)}}
-                                </span>
-                            </p>
-                        </div>
-                        <!-- /.text -->
-                    </div>
-                    <!-- /.contact_to_message -->
-
-                    <div class="actions_article" @mouseleave="dropdown_chat=false">
-                        <i class="fa-solid fa-magnifying-glass fa-xl"></i>
-                        <i class="fa-solid fa-paperclip fa-xl"></i>
-                        <i class="fa-solid fa-ellipsis-vertical fa-xl"
-                            @click="dropdown_chat === true ?dropdown_chat = false : dropdown_chat = true"></i>
-                        <div v-if="dropdown_chat" class="dropdown_chat">
-                            <p @click="delete_all_message">
-                                Delete All Message
-                            </p>
-                            <p @click="delete_chat">
-                                Delete Chat
-                            </p>
-                        </div>
-                        <!-- /.dropdown -->
-                    </div>
-                    <!-- /.actions -->
-
-                </div>
-                <!-- /.body_header -->
-
-                <div class="body_message">
-
-                    <div v-if="contacts.length > 0" class="container" ref="container">
-
-                        <div class="message" :class="message.status === 'sent' ? 'bg_green' : 'bg_white' "
-                            @mouseleave="dropdown_message=false"
-                            v-for="(message,index) in contacts[contact_active].messages">
-                            <p v-if="contacts[contact_active].messages.length > 0">
-                                {{message.message}}
-                            </p>
-                            <div class="icon">
-                                <i class="fa-solid fa-chevron-down"
-                                    @click="dropdown_message === true ?dropdown_message = false : dropdown_message = true"></i>
-                                <div v-if="dropdown_message" class="dropdown_message">
-                                    <p>Message info</p>
-                                    <p @click="delete_message(index)">Delete message</p>
-                                </div>
-                                <!-- /.dropdown -->
+                        <div class="actions_article" @mouseleave="dropdown_chat=false">
+                            <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+                            <i class="fa-solid fa-paperclip fa-xl"></i>
+                            <i class="fa-solid fa-ellipsis-vertical fa-xl"
+                                @click="dropdown_chat === true ?dropdown_chat = false : dropdown_chat = true"></i>
+                            <div v-if="dropdown_chat" class="dropdown_chat">
+                                <p @click="delete_all_message">
+                                    Delete All Message
+                                </p>
+                                <p @click="delete_chat">
+                                    Delete Chat
+                                </p>
                             </div>
-                            <!-- /.icon -->
-                            <div class="time_message" v-if="contacts[contact_active].messages.length > 0">
-                                {{message.date.substring(11,16)}}
-                            </div>
-                            <!-- /.time_message -->
+                            <!-- /.dropdown -->
                         </div>
-                        <!-- /.message -->
+                        <!-- /.actions -->
 
                     </div>
-                    <!-- /.container -->
+                    <!-- /.body_header -->
 
-                </div>
-                <!-- /.body_message -->
+                    <div class="body_message">
 
-                <div class="body_footer">
+                        <div v-if="contacts.length > 0" class="container" ref="container">
 
-
-                    <emoji-picker @emoji="insert" :search="search">
-                        <div slot="emoji-invoker" slot-scope="{ events: { click: clickEvent } }"
-                            @click.stop="clickEvent">
-                            <i class="fa-regular fa-face-smile fa-xl"></i>
-                        </div>
-                        <div class="emoji" slot="emoji-picker" slot-scope="{ emojis, insert, display }">
-                            <div>
-                                <div>
-                                    <input class="emoji_input" type="text" v-model="search">
+                            <div class="message" :class="message.status === 'sent' ? 'bg_green' : 'bg_white' "
+                                @mouseleave="dropdown_message=false"
+                                v-for="(message,index) in contacts[contact_active].messages">
+                                <p v-if="contacts[contact_active].messages.length > 0">
+                                    {{message.message}}
+                                </p>
+                                <div class="icon">
+                                    <i class="fa-solid fa-chevron-down"
+                                        @click="dropdown_message === true ?dropdown_message = false : dropdown_message = true"></i>
+                                    <div v-if="dropdown_message" class="dropdown_message">
+                                        <p>Message info</p>
+                                        <p @click="delete_message(index)">Delete message</p>
+                                    </div>
+                                    <!-- /.dropdown -->
                                 </div>
+                                <!-- /.icon -->
+                                <div class="time_message" v-if="contacts[contact_active].messages.length > 0">
+                                    {{message.date.substring(11,16)}}
+                                </div>
+                                <!-- /.time_message -->
+                            </div>
+                            <!-- /.message -->
+
+                        </div>
+                        <!-- /.container -->
+
+                    </div>
+                    <!-- /.body_message -->
+
+                    <div class="body_footer">
+
+
+                        <emoji-picker @emoji="insert" :search="search">
+                            <div slot="emoji-invoker" slot-scope="{ events: { click: clickEvent } }"
+                                @click.stop="clickEvent">
+                                <i class="fa-regular fa-face-smile fa-xl"></i>
+                            </div>
+                            <div class="emoji" slot="emoji-picker" slot-scope="{ emojis, insert, display }">
                                 <div>
-                                    <div v-for="(emojiGroup, category) in emojis" :key="category">
-                                        <h5>{{ category }}</h5>
-                                        <div>
-                                            <span v-for="(emoji, emojiName) in emojiGroup" :key="emojiName"
-                                                @click="insert(emoji)" :title="emojiName">{{ emoji }}</span>
+                                    <div>
+                                        <input class="emoji_input" type="text" v-model="search">
+                                    </div>
+                                    <div>
+                                        <div v-for="(emojiGroup, category) in emojis" :key="category">
+                                            <h5>{{ category }}</h5>
+                                            <div>
+                                                <span v-for="(emoji, emojiName) in emojiGroup" :key="emojiName"
+                                                    @click="insert(emoji)" :title="emojiName">{{ emoji }}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </emoji-picker>
-                    <form action="#" method="get" @submit.prevent="add_message">
-                        <input type="text" v-model="new_message" pattern="\s*(\S\s*){1,}"
-                            placeholder="Scrivi un messaggio" @keyup.enter required>
-                    </form>
-                    <i v-if="new_message.length>0" @click="add_message" class="fa-solid fa-paper-plane fa-xl"></i>
-                    <i v-else class="fa-solid fa-microphone fa-xl"></i>
-                </div>
-                <!-- /.body_footer -->
+                        </emoji-picker>
+                        <form action="#" method="get" @submit.prevent="add_message">
+                            <input type="text" v-model="new_message" pattern="\s*(\S\s*){1,}"
+                                placeholder="Scrivi un messaggio" @keyup.enter required>
+                        </form>
+                        <i v-if="new_message.length>0" @click="add_message" class="fa-solid fa-paper-plane fa-xl"></i>
+                        <i v-else class="fa-solid fa-microphone fa-xl"></i>
+                    </div>
+                    <!-- /.body_footer -->
 
-            </article>
-            <!-- /article -->
+                </article>
+                <!-- /article -->
 
-        </main>
-        <!-- /#site_main -->
+            </main>
+            <!-- /#site_main -->
+
+        </div>
 
     </div>
     <!-- /#app -->
