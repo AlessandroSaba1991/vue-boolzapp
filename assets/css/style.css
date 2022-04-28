@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: linear-gradient(
     to bottom,
@@ -49,7 +53,7 @@ h3 {
 .container {
   margin: 0rem auto;
   width: 70%;
-  padding-top: 3rem;
+  padding: 3rem 0;
 }
 
 .bg_green {

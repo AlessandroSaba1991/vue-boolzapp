@@ -258,11 +258,13 @@ const app = new Vue({
         };
         app.text_last_message = 'Online'
         app.contacts[app.contact_active].messages.push(messaggio);
+        app.$nextTick(app.scroll_down)
       }, 1000);
       setTimeout(function(){
         app.text_last_message = 'Ultimo accesso alle '
         app.show_hour = true
       },3000)
+      this.$nextTick(this.scroll_down)
     },
     add_contact(){
       const new_contact = {
@@ -302,6 +304,14 @@ const app = new Vue({
         this.contact_active--
       }
     },
-  }, 
+    scroll_down(){      
+        const element=document.querySelector('.container')
+        element.scrollIntoView(false)
+        console.log('ciao');   
+    }
+  },
+  beforeUpdate: function(){
+    
+  } 
 });
 console.log(dayjs().format());
