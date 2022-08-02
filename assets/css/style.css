@@ -109,24 +109,30 @@ h3 {
 
 .zoom {
   position: absolute;
-  top: 0;
+  top: 6%;
   left: 50%;
-  transform: translate(-50%, 0);
+  transform: translate(-50%, -50%);
   text-align: center;
   padding: 0.5rem;
-  color: var(--bg_white);
+  color: var(--gray_actions);
+  z-index: 2;
 }
 
-.zoom > i {
-  padding: 0.5rem;
+.action_zoom > i:first-child {
+  margin-right: 0.5rem;
 }
+
+.action_zoom  > i:last-child {
+  margin-left: 0.5rem;
+}
+
 
 .btn {
   padding: 0.5rem 1rem;
-  background-color: var(--bg_white);
-  color: var(--black);
-  border: none;
+  background-color: var(--bg_aside_header);
+  color: var(--gray_actions);
   border-radius: 0.5rem;
+  border: 1px solid var(--gray_actions);
 }
 
 /* #endregion Utility */
@@ -170,7 +176,7 @@ h3 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 25%;
+  width: 20%;
   margin: 0 2rem;
 }
 
@@ -392,6 +398,7 @@ article {
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
+  position: relative;
   background-color: var(--bg_aside_header);
 }
 

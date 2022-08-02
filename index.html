@@ -16,12 +16,15 @@
 
     <div id="app">
         <div class="wrapper" ref="wrapper">
-            <div class="zoom">
-                <i @click="zoom_in" class="fa-solid fa-plus fa-xl"></i>
-                <i @click="zoom_out" class="fa-solid fa-minus fa-xl"></i>
-                <button class="btn" @click="change_mode">{{theme_mode}}</button>
-            </div>
             <main id="site_main" ref="site_main">
+                <div class="zoom" v-if="aside_show || article_show">
+                    <button class="btn action_zoom">
+                        <i @click="zoom_in" class="fa-solid fa-plus fa-md"></i>
+                        {{number_zoom}}%
+                        <i @click="zoom_out" class="fa-solid fa-minus fa-md"></i>
+                    </button>
+                    <button class="btn" @click="change_mode">{{theme_mode}}</button>
+                </div>
                 <div class="chat_selector" v-if="select_contact">
                     <h2>Benvenuto su Boolzapp</h2>
                     <h3>seleziona il contatto con cui vuoi parlare</h3>
@@ -106,7 +109,7 @@
 
                         <div class="contact" v-for="(contact,index) in contacts"
                             :class="contact_active === index ? 'active' : ''" @click="select_chat(index)"
-                            v-if="confronta(contact,index)">
+                            v-show="confronta(contact,index)">
 
                             <div class="description_contact">
                                 <div class="img">
@@ -124,7 +127,7 @@
                             <!-- /.description_contact -->
                             <div class="date">
                                 <small v-if="contacts[index].messages.length > 0">
-                                    {{contacts[index].messages[contacts[index].messages.length-1].date.substring(11,16)}}
+                                    {{dateFormat(index)}}
                                 </small>
                             </div>
                             <!-- /.date -->
@@ -140,7 +143,7 @@
                 <article v-if="article_show">
 
                     <div class="article_header">
-
+                        
                         <div v-if="contacts.length > 0" class="contact_to_message">
                             <div class="return">
                                 <i @click="come_back" class="fa-solid fa-arrow-alt-circle-left fa-xl"></i>
@@ -155,7 +158,7 @@
                                 <p v-if="contacts[contact_active].messages.length > 0">
                                     <span>{{text_last_message}}</span>
                                     <span v-if="show_hour">
-                                        {{this.contacts[this.contact_active].messages[this.contacts[this.contact_active].messages.length-1].date.substring(11,16)}}
+                                        {{dateFormat(contact_active)}}
                                     </span>
                                 </p>
                             </div>
@@ -164,6 +167,7 @@
                         <!-- /.contact_to_message -->
 
                         <div class="actions_article" @mouseleave="dropdown_chat=false">
+                            
                             <i class="fa-solid fa-magnifying-glass fa-xl"></i>
                             <i class="fa-solid fa-paperclip fa-xl"></i>
                             <i class="fa-solid fa-ellipsis-vertical fa-xl"
@@ -204,7 +208,7 @@
                                 </div>
                                 <!-- /.icon -->
                                 <div class="time_message" v-if="contacts[contact_active].messages.length > 0">
-                                    {{message.date.substring(11,16)}}
+                                    {{messageDateFormat(message.date)}}
                                 </div>
                                 <!-- /.time_message -->
                             </div>
