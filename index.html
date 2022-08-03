@@ -17,14 +17,7 @@
     <div id="app">
         <div class="wrapper" ref="wrapper">
             <main id="site_main" ref="site_main">
-                <div class="zoom" v-if="aside_show || article_show">
-                    <button class="btn action_zoom">
-                        <i @click="zoom_in" class="fa-solid fa-plus fa-md"></i>
-                        {{number_zoom}}%
-                        <i @click="zoom_out" class="fa-solid fa-minus fa-md"></i>
-                    </button>
-                    <button class="btn" @click="change_mode">{{theme_mode}}</button>
-                </div>
+                
                 <div class="chat_selector" v-if="select_contact">
                     <h2>Benvenuto su Boolzapp</h2>
                     <h3>seleziona il contatto con cui vuoi parlare</h3>
@@ -44,7 +37,14 @@
                 </div>
                 <aside v-if="aside_show">
                     <section class="aside_header">
-
+                        <div class="zoom">
+                            <button class="btn action_zoom">
+                                <i @click="zoom_in" class="fa-solid fa-plus fa-md"></i>
+                                {{number_zoom}}%
+                                <i @click="zoom_out" class="fa-solid fa-minus fa-md"></i>
+                            </button>
+                            <button class="btn" @click="change_mode">{{theme_mode}}</button>
+                        </div>
                         <div class="principal_contact">
                             <div class="img">
                                 <img src="./assets/img/avatar_io.jpg" alt="me">
@@ -143,7 +143,14 @@
                 <article v-if="article_show">
 
                     <div class="article_header">
-                        
+                        <div class="zoom">
+                            <button class="btn action_zoom">
+                                <i @click="zoom_in" class="fa-solid fa-plus fa-md"></i>
+                                {{number_zoom}}%
+                                <i @click="zoom_out" class="fa-solid fa-minus fa-md"></i>
+                            </button>
+                            <button class="btn" @click="change_mode">{{theme_mode}}</button>
+                        </div>
                         <div v-if="contacts.length > 0" class="contact_to_message">
                             <div class="return">
                                 <i @click="come_back" class="fa-solid fa-arrow-alt-circle-left fa-xl"></i>
@@ -194,8 +201,8 @@
                             <div class="message" :class="message.status === 'sent' ? 'bg_green' : 'bg_white' "
                                 @mouseleave="dropdown_message=false"
                                 v-for="(message,index) in contacts[contact_active].messages">
-                                <p v-if="contacts[contact_active].messages.length > 0">
-                                    {{message.message}}
+                                <p v-html="message.message" v-if="contacts[contact_active].messages.length > 0">
+                                    
                                 </p>
                                 <div class="icon">
                                     <i class="fa-solid fa-chevron-down"
@@ -250,7 +257,11 @@
                                 placeholder="Scrivi un messaggio" @keyup.enter required>
                         </form>
                         <i v-if="new_message.length>0" @click="add_message" class="fa-solid fa-paper-plane fa-xl"></i>
-                        <i v-else class="fa-solid fa-microphone fa-xl"></i>
+                        <span  v-else>
+                            <i v-if="recording" class="fa-solid fa-microphone fa-xl" @click="startRecording()"></i>
+                            <i v-else id="stopRecording" class="fa-solid fa-stop fa-xl"></i>
+                        </span>
+                        
                     </div>
                     <!-- /.body_footer -->
 

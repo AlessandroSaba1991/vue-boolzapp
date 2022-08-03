@@ -33,15 +33,15 @@ A) rendere l'app responsive e fruibile anche su mobile: di default si visualizza
 aggiungere un'icona per ingrandire o rimpicciolire il font: dovrebbe essere sufficiente aggiungere una classe al wrapper principale
 aggiungere un'icona per cambiare la modalità light/dark: dovrebbe essere sufficiente aggiungere una classe al wrapper principale
 */
-Vue.use(EmojiPicker)
+Vue.use(EmojiPicker);
 
 const app = new Vue({
   el: "#app",
   data() {
     return {
-      input: '',
-      search: '',
-    }
+      input: "",
+      search: "",
+    };
   },
   data: {
     contacts: [
@@ -207,149 +207,201 @@ const app = new Vue({
         ],
       },
     ],
-    risposta:[
-      'Le cose più belle della vita o sono immorali, o sono illegali, oppure fanno ingrassare.',
-      'La vita è come andare in bicicletta. Per mantenere l’equilibrio devi muoverti.',
-      'Un giorno qualcuno entrerà nella tua vita e ti farà capire quanto stavi da Dio prima di conoscerlo.',
-      '“Io boh, senza parole” come frase per tutto, come pensiero ricorrente, come filosofia di vita.',
-      'Stasera esco e faccio vita sociaHAHAHAHAHAHAHAHAH scherzo, sono già in pigiama.',
-      'La vita sarebbe tragica se non fosse divertente.',
-      'Se la felicità è dietro l’angolo, la mia vita è un cerchio.',
-      'Alcune persone non impazziscono mai. Che vite veramente orribili devono condurre.',
-      'Tutto ciò di cui hai bisogno è l’amore. Ma un po’ di cioccolato ogni tanto non fa male.',
-      'La vita sarebbe infinitamente più felice se nascessimo a ottanta anni e ci avvicinassimo gradualmente ai diciotto.',
-      'La prova che nell’universo esistono altre forme di vita intelligente è che non ci hanno ancora contattato.',
-      'Non prendere la vita troppo sul serio. Non ne uscirai vivo.'
+    risposta: [
+      "Le cose più belle della vita o sono immorali, o sono illegali, oppure fanno ingrassare.",
+      "La vita è come andare in bicicletta. Per mantenere l’equilibrio devi muoverti.",
+      "Un giorno qualcuno entrerà nella tua vita e ti farà capire quanto stavi da Dio prima di conoscerlo.",
+      "“Io boh, senza parole” come frase per tutto, come pensiero ricorrente, come filosofia di vita.",
+      "Stasera esco e faccio vita sociaHAHAHAHAHAHAHAHAH scherzo, sono già in pigiama.",
+      "La vita sarebbe tragica se non fosse divertente.",
+      "Se la felicità è dietro l’angolo, la mia vita è un cerchio.",
+      "Alcune persone non impazziscono mai. Che vite veramente orribili devono condurre.",
+      "Tutto ciò di cui hai bisogno è l’amore. Ma un po’ di cioccolato ogni tanto non fa male.",
+      "La vita sarebbe infinitamente più felice se nascessimo a ottanta anni e ci avvicinassimo gradualmente ai diciotto.",
+      "La prova che nell’universo esistono altre forme di vita intelligente è che non ci hanno ancora contattato.",
+      "Non prendere la vita troppo sul serio. Non ne uscirai vivo.",
     ],
-    number_zoom:100,
+    recording: true,
+    number_zoom: 100,
     contact_active: 0,
-    font_size:1,
+    font_size: 1,
     new_message: "",
     input_search: "",
-    new_contact_name:'',
-    new_contact_img:'',
-    theme_mode:'Dark Theme',
-    select_contact:true,
-    splash_page:false,
-    aside_show:false,
-    article_show:false,
+    new_contact_name: "",
+    new_contact_img: "",
+    theme_mode: "Dark Theme",
+    select_contact: true,
+    splash_page: false,
+    aside_show: false,
+    article_show: false,
     dropdown_message: false,
     dropdown_chat: false,
-    dropdown_add_contact:false,
-    text_last_message: 'Ultimo accesso alle ',
-    show_hour:true,
-    search:''
+    dropdown_add_contact: false,
+    text_last_message: "Ultimo accesso alle ",
+    show_hour: true,
+    search: "",
+    audioMessage: "",
+    mediaRecorder: "",
   },
   methods: {
-    messageDateFormat(date){
-      const format = date.split(',')
-      return format[1].trim().slice(0,5)
+    startRecording() {
+      this.recording = false;
+      this.mediaRecorder = "";
+      this.audioMessage = "";
+      navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+        const mediaRecorder = new MediaRecorder(stream);
+        this.mediaRecorder = mediaRecorder;
+        this.mediaRecorder.start();
+        const audioChunks = [];
+        console.log();
+        this.mediaRecorder.addEventListener("dataavailable", (event) => {
+          audioChunks.push(event.data);
+        });
+        document
+          .getElementById("stopRecording").addEventListener("click", () => {
+            console.log(this.mediaRecorder.state == "recording");
+            if (this.mediaRecorder.state == "recording") {
+              this.recording = true;
+              this.mediaRecorder.stop();
+            }
+          });
+        this.mediaRecorder.addEventListener("stop", () => {
+          const audioBlob = new Blob(audioChunks);
+          const audioUrl = URL.createObjectURL(audioBlob);
+          this.audioMessage = new Audio(audioUrl);
+          console.log(audioChunks, this.audioMessage);
+          this.addAudioMessage();
+        });
+      });
     },
-    dateFormat(index){
-      const date = this.contacts[index].messages[this.contacts[index].messages.length-1].date
+    messageDateFormat(date) {
+      const format = date.split(",");
+      return format[1].trim().slice(0, 5);
+    },
+    dateFormat(index) {
+      const date =
+        this.contacts[index].messages[this.contacts[index].messages.length - 1]
+          .date;
       console.log(date);
-      const format = date.split(',')
-      console.log(format[1].trim().slice(0,5));
-      return format[1].trim().slice(0,5)
+      const format = date.split(",");
+      console.log(format[1].trim().slice(0, 5));
+      return format[1].trim().slice(0, 5);
     },
-    change_mode(){
-      this.$refs.wrapper.classList.toggle('color_dark')
-      if(this.theme_mode==='Dark Theme'){
-        this.theme_mode='Light Theme'
-      } else{
-        this.theme_mode='Dark Theme'
+    change_mode() {
+      this.$refs.wrapper.classList.toggle("color_dark");
+      if (this.theme_mode === "Dark Theme") {
+        this.theme_mode = "Light Theme";
+      } else {
+        this.theme_mode = "Dark Theme";
       }
     },
-    zoom_in(){
-      this.font_size+=0.2
-      const element = this.$refs.site_main
-      element.style.cssText = 'font-size:' + this.font_size + 'rem' 
-      this.number_zoom += 10     
+    zoom_in() {
+      this.font_size += 0.2;
+      const element = this.$refs.site_main;
+      element.style.cssText = "font-size:" + this.font_size + "rem";
+      this.number_zoom += 10;
     },
-    zoom_out(){
-      this.font_size-=0.2
-      const element = this.$refs.site_main
-      element.style.cssText = 'font-size:' + this.font_size + 'rem'
-      this.number_zoom -= 10 
+    zoom_out() {
+      this.font_size -= 0.2;
+      const element = this.$refs.site_main;
+      element.style.cssText = "font-size:" + this.font_size + "rem";
+      this.number_zoom -= 10;
     },
-    choose_chat(index){
-      this.contact_active=index
-      this.select_contact = false
-      this.splash_page = true
-      setTimeout(function(){
-        app.splash_page = false
-        app.article_show=true
-      },1000)
+    choose_chat(index) {
+      this.contact_active = index;
+      this.select_contact = false;
+      this.splash_page = true;
+      setTimeout(function () {
+        app.splash_page = false;
+        app.article_show = true;
+      }, 1000);
     },
-    come_back(){
-      this.article_show=false
-      this.aside_show=true
+    come_back() {
+      this.article_show = false;
+      this.aside_show = true;
     },
-    select_chat(index){
-      this.contact_active=index
-      this.aside_show=false
-      this.article_show=true
+    select_chat(index) {
+      this.contact_active = index;
+      this.aside_show = false;
+      this.article_show = true;
     },
     insert(emoji) {
-      this.new_message += emoji
+      this.new_message += emoji;
     },
-    img_normal(contact){
-      if(contact.avatar.length > 2){
-        return contact.avatar
+    img_normal(contact) {
+      if (contact.avatar.length > 2) {
+        return contact.avatar;
       } else {
-        return './assets/img/avatar'+contact.avatar+'.jpg'
+        return "./assets/img/avatar" + contact.avatar + ".jpg";
       }
     },
-    img_active(){
-      const avatar = this.contacts[this.contact_active].avatar
-      if(avatar.length > 2){
-        return avatar
+    img_active() {
+      const avatar = this.contacts[this.contact_active].avatar;
+      if (avatar.length > 2) {
+        return avatar;
       } else {
-        return './assets/img/avatar'+avatar+'.jpg'
+        return "./assets/img/avatar" + avatar + ".jpg";
       }
+    },
+    addAudioMessage() {
+      this.show_hour = false;
+      const message_send = {
+        date: new Date().toLocaleString(),
+        message: `
+        <audio controls>
+          <source src="${this.audioMessage.src}" type="audio/ogg">
+        </audio>
+        `,
+        status: "sent",
+      };
+      this.contacts[this.contact_active].messages.push(message_send);
+      this.new_message = "";
+      this.messageResponse();
     },
     add_message() {
-      this.show_hour = false
-      console.log(new Date().toLocaleString());
-      const message_send= {
+      this.show_hour = false;
+      const message_send = {
         date: new Date().toLocaleString(),
         message: this.new_message,
         status: "sent",
-      }
+      };
       this.contacts[this.contact_active].messages.push(message_send);
-      this.new_message = ''
-      this.text_last_message ='Sta scrivendo...'
-      console.log(new Date().toLocaleString());
+      this.new_message = "";
+      this.messageResponse();
+    },
+    messageResponse() {
+      this.text_last_message = "Sta scrivendo...";
       setTimeout(function () {
         const messaggio = {
           date: new Date().toLocaleString(),
-          message: app.risposta[Math.floor(Math.random() * app.risposta.length)],
+          message:
+            app.risposta[Math.floor(Math.random() * app.risposta.length)],
           status: "received",
         };
-        app.text_last_message = 'Online'
+        app.text_last_message = "Online";
         app.contacts[app.contact_active].messages.push(messaggio);
-        app.$nextTick(app.scroll_down)
+        app.$nextTick(app.scroll_down);
       }, 1000);
-      setTimeout(function(){
-        app.text_last_message = 'Ultimo accesso alle '
-        app.show_hour = true
-      },3000)
-      this.$nextTick(this.scroll_down)
+      setTimeout(function () {
+        app.text_last_message = "Ultimo accesso alle ";
+        app.show_hour = true;
+      }, 3000);
+      this.$nextTick(this.scroll_down);
     },
-    add_contact(){
+    add_contact() {
       const new_contact = {
         name: this.new_contact_name,
         avatar: this.new_contact_img,
         visible: true,
         messages: [],
-      }
-      this.contacts.unshift(new_contact)
-      this.new_contact_name = ''
-      this.new_contact_img = ''
-      this.dropdown_add_contact = false
-      this.contact_active=0
-      this.aside_show=false
-      this.article_show=true
+      };
+      this.contacts.unshift(new_contact);
+      this.new_contact_name = "";
+      this.new_contact_img = "";
+      this.dropdown_add_contact = false;
+      this.contact_active = 0;
+      this.aside_show = false;
+      this.article_show = true;
     },
     confronta(contact, index) {
       const nome = contact.name.toLowerCase();
@@ -365,21 +417,21 @@ const app = new Vue({
       this.contacts[this.contact_active].messages.splice(index, 1);
       this.dropdown_message = false;
     },
-    delete_all_message(){
-      this.contacts[this.contact_active].messages=[]
-      this.dropdown_chat=false
+    delete_all_message() {
+      this.contacts[this.contact_active].messages = [];
+      this.dropdown_chat = false;
     },
-    delete_chat(){
-      this.contacts.splice(this.contact_active,1)
-      this.dropdown_chat=false
-      if(this.contact_active === this.contacts.length){
-        this.contact_active--
+    delete_chat() {
+      this.contacts.splice(this.contact_active, 1);
+      this.dropdown_chat = false;
+      if (this.contact_active === this.contacts.length) {
+        this.contact_active--;
       }
-      this.aside_show=true
-      this.article_show=false
+      this.aside_show = true;
+      this.article_show = false;
     },
-    scroll_down(){      
-        this.$refs.container.scrollIntoView(false)   
-    }
+    scroll_down() {
+      this.$refs.container.scrollIntoView(false);
+    },
   },
 });
